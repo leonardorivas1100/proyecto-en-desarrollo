@@ -1,0 +1,37 @@
+Work Codespaces 
+    1. Verificacion rama: (git branch)
+      - Muestra la rama en la que te encuentras. Por defecto te encuentras en la 
+      rama principal (main).
+      - Para ubicarnos en la rama correcta en caso de estar en la incorrecta
+      el comando (git checkeout "nombre de la rama")
+
+    2. Sincronizar repositorio: (git pull origin main)
+      - Esto va a sincronizar los cambios hechos del repositorio remoto, haciendo que 
+      el entorno tenga los cambios mas recientes del repositorio. Basicamente
+      lo que hacemos es que nuestro Codespaces este con todas las actualizaciones
+      hechas en el repositorio, pues lo configura por asi decirlo.
+
+    3. Realizar el trabajo necesario.
+
+    4. Verificacion de cambios: (git status)
+      - Despues de haber hecho los cambios necesarios, se pueden ver los archivos
+      que han sido modificados usando el comando. Esto se encargará de mostrar los 
+      archivos modificados o nuevos que no han sido añadidos a la seccion de commit.
+      - Osea cuando se ejecuta el comando; la terminal va a mostrar los archivos
+      que aun no se les ha hecho el commit, osea los archivos que aun no se han 
+      guardado
+
+    5. Guardar progreso: (git add)
+      - El comando lo que hace es guardar los archivos al area
+      donde se les agregara el commit. Este comando agregará todos
+      los cambios
+    
+    6. Agregar Commit: (git commit -m "description del commit")
+      - Aqui basicamente lo que se hace es agregar el commit que 
+      queremos agregar a los archivos que estamos cargando
+
+    7. Subir: (git push origin main)
+      - El comando subira los cambios de la rama local a la rama 
+      correspodiente en el repositorio remoto. Osea esto como tal 
+      sube los cambios finalmente al repositorio
+      
