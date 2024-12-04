@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.1",
+    "mongoose": "^8.8.3"
+  },
+  "name": "poryecto_x",
+  "version": "1.0.0",
+  "description": "Este es el resultado de todo lo visto hasta ahora como desarrllador de software, implementado solo a codificacion, ya que es un proyecto individual, conteniendo soluciones y herramientas que podrían funcionar para el futuro",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Leonardo Rivas",
+  "license": "ISC"
+}
