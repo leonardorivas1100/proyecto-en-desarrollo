@@ -21,7 +21,7 @@ Work Codespaces
       que aun no se les ha hecho el commit, osea los archivos que aun no se han 
       guardado
 
-    5. Guardar progreso: (git add)
+    5. Guardar progreso: (git add .)
       - El comando lo que hace es guardar los archivos al area
       donde se les agregara el commit. Este comando agregará todos
       los cambios
