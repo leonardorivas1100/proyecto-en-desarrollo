@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "mongoose": "^8.8.3"
@@ -9,8 +10,10 @@
   "version": "1.0.0",
   "description": "Este es el resultado de todo lo visto hasta ahora como desarrllador de software, implementado solo a codificacion, ya que es un proyecto individual, conteniendo soluciones y herramientas que podrían funcionar para el futuro",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js"
   },
   "author": "Leonardo Rivas",
   "license": "ISC"
