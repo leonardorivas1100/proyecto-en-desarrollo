@@ -3,7 +3,7 @@ POST http://localhost:10000/api/roles
 Content-Type: application/json
 
 {
-  "nombre": "cliente"
+  "nombre": "asistente"
 }
 
 ###
@@ -20,7 +20,7 @@ GET http://localhost:10000/api/roles/6753df4ecbad7dc405cf529c
 
 
 ### Actualizar un rol por su ID
-PUT http://localhost:10000/api/roles/6753dfbf3b785f2441eb041d
+PUT http://localhost:10000/api/roles/6753ef87358975532e46d103
 Content-Type: application/json
 
 {
