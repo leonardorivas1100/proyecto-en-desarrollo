@@ -4,6 +4,7 @@ import Joi from 'joi';
 export const createRolSchema = Joi.object({
   nombre: Joi.string().required().messages({
     'string.base': 'El nombre del rol debe ser una cadena de texto.',
+    'string.empty': 'El nombre del rol no puede estar vacío.',
     'any.required': 'El nombre del rol es un campo obligatorio.'
   }),
 });
@@ -12,6 +13,7 @@ export const createRolSchema = Joi.object({
 export const updateRolSchema = Joi.object({
   nombre: Joi.string().optional().messages({
     'string.base': 'El nombre del rol debe ser una cadena de texto.',
+    'string.empty': 'El nombre del rol no puede estar vacío.',
   }),
 });
 

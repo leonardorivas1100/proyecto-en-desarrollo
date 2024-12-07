@@ -24,9 +24,9 @@ PUT http://localhost:10000/api/roles/6753ef87358975532e46d103
 Content-Type: application/json
 
 {
-  "nombre": "cliente modificado"
+  "nombre": ""
 }
 
 
 ### Eliminar un rol por su ID
-DELETE http://localhost:10000/api/roles/6753dfbf3b785f2441eb041d
+DELETE http://localhost:10000/api/roles/675400294d727d7203b84485
