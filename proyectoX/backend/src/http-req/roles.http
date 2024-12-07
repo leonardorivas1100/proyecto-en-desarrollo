@@ -29,4 +29,4 @@ Content-Type: application/json
 
 
 ### Eliminar un rol por su ID
-DELETE http://localhost:10000/api/roles/6753df79a97b6aa1826fe12d
+DELETE http://localhost:10000/api/roles/6753dfbf3b785f2441eb041d
