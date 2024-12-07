@@ -1,6 +1,7 @@
 // Importamos las dependencias, controladores
 import express from 'express';
 import { validatorHandler } from '../middleware/validator.handler.js';
+import { createRolSchema, getRolSchema, updateRolSchema, deleteRolSchema } from '../validators/rol_validator.js';
 import { create_rol, see_all_roles, update_rol, see_rol, delete_rol } from '../controllers/rol_controller.js';
 
 // Definimos las rutas para los roles.
@@ -46,8 +47,7 @@ const RolRouter = express.Router();
  *       500:
  *         description: Error al crear el rol
  */
-RolRouter.post('/', create_rol);
-
+RolRouter.post('/',validatorHandler(createRolSchema, 'body'), create_rol);
 
 // 2. End-Point para obtener todos los roles.
 /**
@@ -86,7 +86,7 @@ RolRouter.get('/', see_all_roles);
  *       500:
  *         description: Error al obtener el Rol
  */
-RolRouter.get('/:id', see_rol);
+RolRouter.get('/:id', validatorHandler(getRolSchema, 'params'), see_rol);
 
 // 4. End-Point para actualizar un rol por ID.
 /**
@@ -123,7 +123,7 @@ RolRouter.get('/:id', see_rol);
  *       500:
  *         description: Error interno al actualizar el rol
  */
-RolRouter.put('/:id', update_rol); 
+RolRouter.put('/:id', validatorHandler(updateRolSchema, 'body'), update_rol); 
 
 // 5. End-Point para eliminar un rol por ID.
 /**
@@ -147,7 +147,7 @@ RolRouter.put('/:id', update_rol);
  *       500:
  *         description: Error al eliminar el Rol
  */
-RolRouter.delete('/:id', delete_rol);
+RolRouter.delete('/:id', validatorHandler(deleteRolSchema, 'params'), delete_rol);
 
 
 // Exportamos las rutas para usarlas en otros archivos.
