@@ -1,0 +1,32 @@
+### Crear un nuevo Rol
+POST http://localhost:10000/api/roles
+Content-Type: application/json
+
+{
+  "nombre": "cliente"
+}
+
+###
+
+### Obtener todos los roles
+GET http://localhost:10000/api/roles
+
+###
+
+### Obtener un rol por su ID
+GET http://localhost:10000/api/roles/6753df4ecbad7dc405cf529c
+
+###
+
+
+### Actualizar un rol por su ID
+PUT http://localhost:10000/api/roles/6753dfbf3b785f2441eb041d
+Content-Type: application/json
+
+{
+  "nombre": "cliente modificado"
+}
+
+
+### Eliminar un rol por su ID
+DELETE http://localhost:10000/api/roles/6753df79a97b6aa1826fe12d
