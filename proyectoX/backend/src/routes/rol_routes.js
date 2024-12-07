@@ -7,14 +7,12 @@ import { create_rol, see_all_roles, update_rol, see_rol, delete_rol } from '../c
 const RolRouter = express.Router();
 
 // 1. End-Point para crear un nuevo rol.
-
 /**
  * @swagger
  * tags:
  *   name: Rol
  *   description: Operaciones relacionadas con roles.
  */
-
 /**
  * @swagger
  * components:
@@ -28,7 +26,6 @@ const RolRouter = express.Router();
  *       required:
  *         - nombre
  */
-
 /**
  * @swagger
  * /api/roles:
@@ -51,16 +48,105 @@ const RolRouter = express.Router();
  */
 RolRouter.post('/', create_rol);
 
+
 // 2. End-Point para obtener todos los roles.
-RolRouter.get('/', see_all_roles);
+/**
+ * @swagger
+ * /api/roles:
+ *   get:
+ *     summary: Mirar todos los roles de la base de datos
+ *     tags: [Roles]
+ *     responses:
+ *       201:
+ *         description: Lista de roles 
+ *       500:
+ *         description: Error al obtener los roles
+ */
+RolRouter.get('/', see_all_roles); 
 
-// 3. End-Point para actualizar un rol por ID.
-RolRouter.put('/:id', update_rol);  
-
-// 4. End-Point para obtener un rol por ID.
+// 3. End-Point para obtener un rol por ID.
+/**
+ * @swagger
+ * /api/roles/{id}:
+ *   get:
+ *     summary: Obtener un rol especificado por su Id
+ *     tags: [Roles]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Id del Rol
+ *     responses:
+ *       200:
+ *         description: Rol encontrado
+ *       404:
+ *         description: Rol no encontrado
+ *       500:
+ *         description: Error al obtener el Rol
+ */
 RolRouter.get('/:id', see_rol);
 
+// 4. End-Point para actualizar un rol por ID.
+/**
+ * @swagger
+ * /api/roles/{id}:
+ *   put:
+ *     summary: Actualizar un Rol
+ *     description: Actualiza los detalles de un rol. Solo se pueden modificar los campos proporcionados.
+ *     tags: [Roles]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Id del Rol
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Rol'
+ *     responses:
+ *       200:
+ *         description: Rol actualizado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Rol'
+ *       400:
+ *         description: Error de validación o datos incompletos
+ *       404:
+ *         description: Rol no encontrado
+ *       500:
+ *         description: Error interno al actualizar el rol
+ */
+RolRouter.put('/:id', update_rol); 
+
 // 5. End-Point para eliminar un rol por ID.
+/**
+ * @swagger
+ * /api/roles/{id}:
+ *   delete:
+ *     summary: Eliminar un Rol por su Id
+ *     tags: [Roles]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Id del Rol
+ *     responses:
+ *       200:
+ *         description: Rol eliminado correctamente
+ *       404:
+ *         description: Rol no encontrado
+ *       500:
+ *         description: Error al eliminar el Rol
+ */
 RolRouter.delete('/:id', delete_rol);
 
 
