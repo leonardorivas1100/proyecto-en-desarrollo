@@ -1,0 +1,13 @@
+### Crear un nuevo usuario
+POST http://localhost:10000/api/usuarios
+Content-Type: application/json
+
+{
+  "numeroIdentificacion": "228989",
+  "nombres": "Juan Alejo",
+  "apellidos": "Diaz Balcazar",
+  "telefono": "3027887963",
+  "email": "jua@gmail.com",
+  "password": "juan123",
+  "id_rol": "6753de1ab2b6836ee41892b3"
+}

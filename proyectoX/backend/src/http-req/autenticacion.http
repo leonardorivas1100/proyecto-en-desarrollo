@@ -1,0 +1,9 @@
+### Probar inicio de sesión
+POST http://localhost:10000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "juan@gmail.com",
+  "password": "juan123" 
+  # Siempre escribir la contraseña no encriptada
+}
