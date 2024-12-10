@@ -12,10 +12,12 @@ const generarToken = (usuario) => {
     { 
       id: usuario._id, 
       email: usuario.email, 
-      rol: usuario.id_rol 
-    }, // Información en el payload
+      nombres: usuario.nombres, // Agrega nombres si está en tu modelo
+      apellidos: usuario.apellidos, // Agrega apellidos si está en tu modelo
+      roles: usuario.id_rol // Cambia esto si los roles están estructurados de otra forma
+    },
     process.env.JWT_SECRET, // Clave secreta desde el archivo .env
-    { expiresIn: '1h' } // Tiempo de expiración del token
+    { expiresIn: '12h' } // Tiempo de expiración del token
   );
 };
 
@@ -41,8 +43,8 @@ const login = async (req, res) => {
 
     // Enviar la respuesta con el token
     res.status(200).json({ 
-      message: 'Inicio de sesión exitoso',
-      token 
+      message: '¡Inicio de sesión exitoso!',
+      Token_generado: token 
     });
   } catch (error) {
     console.error('Error en el login:', error.message);
