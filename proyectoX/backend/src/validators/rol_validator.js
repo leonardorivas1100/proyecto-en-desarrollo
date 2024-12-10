@@ -9,7 +9,7 @@ export const createRolSchema = Joi.object({
   }),
 });
 
-// Esquema de validación para la actualización de un rol
+// Esquema de validación para la actualización de un rol en la base de datos
 export const updateRolSchema = Joi.object({
   nombre: Joi.string().optional().messages({
     'string.base': 'El nombre del rol debe ser una cadena de texto.',
