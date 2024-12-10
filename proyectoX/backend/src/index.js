@@ -12,7 +12,7 @@ import rolRoutes from './routes/rol_routes.js';
 // Configuración de variables de entorno
 dotenv.config();
 
-// Importamos las rutas 
+// Importamos las rutas de los roles 
 import rolRoutes from './routes/rol_routes.js';
 
 
