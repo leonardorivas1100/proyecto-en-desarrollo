@@ -1,0 +1,85 @@
+Implementacion en seco del Json Web Tokken.
+ - Ya se sabe que el Jwt es un mecanismo de autenticacion, que permite a un usuario generar un token unico,
+ como una llave unica para identificarlo cuando inicie sesion. Este token incluye información encriptada 
+ (como el id del usuario) y puede ser usado por el frontend para:
+    - Identificar al usuario en futuras solicitudes.
+    - Proteger rutas privadas.
+    - Verificar que la sesión del usuario sigue activa.
+
+- Basicamente este mecanismo se usa para agregar seguridad al proyecto que estoy desarrollando. El token 
+contiene 3 partes; header, payload y signature, cada uno separado por puntos pero unidos.
+
+    #Codigo generalizado
+
+->    const token = jwt.sign({ id: user._id }, 'your_secret_key', { expiresIn: '1h' });
+
+    - Explicacion:
+        ° jwt.sign(): Es una función del paquete jsonwebtoken que genera un token único.El token contiene
+         3 partes codificadas en base64:
+            Header: Información sobre el algoritmo de firma.
+            Payload: Datos que deseas incluir, como el id del usuario.
+            Signature: La parte encriptada que asegura la validez del token usando tu clave secreta.
+        - Parámetros del método sign:
+            Payload: { id: user._id } : Esto significa que el token incluirá el id del usuario como 
+            dato principal.
+
+            Clave secreta: 'your_secret_key'
+            Es la "llave" que tu backend utiliza para firmar el token. Es muy importante mantenerla segura, 
+            ya que cualquiera que la tenga podría generar tokens válidos.
+
+            Configuración extra: { expiresIn: '1h' }
+            Define la duración del token. En este caso, el token expirará en 1 hora.
+
+    - Su respuesta osea lo que generara sera una cadena de texto como esta:
+        eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+        .eyJpZCI6IjY0N2Y5MmU1OGUxMjM0NTY3ODlhYmNkIiwiaWF0IjoxNjg3MTkwNTA3LCJleHAiOjE2ODcyMjY1MDd9
+        .3V7R_VYTRK5VkZwTnqcHp7JXGglz3vB2zMSL6UQpmKk
+
+        - Primera parte: Información del algoritmo (eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9).
+        - Segunda parte: Datos del usuario (eyJpZCI6IjY0N2...).
+        - Tercera parte: Firma encriptada para validar el token (3V7R_VYTRK...).
+
+
+
+
+
+
+
+
+
+
+1. Primera parte de la implementacion:
+    - Implementar en el modelo de usuario la logica para encriptar la contraseña.
+        .La logica implementada fue la siguiente:
+        -> 
+
+        import bcrypt from 'bcryptjs';  
+        // Middleware para encriptar la contraseña antes de guardarla
+            usuarioSchema.pre('save', async function (next) {
+                if (this.isModified('password') || this.isNew) {
+                    this.password = await bcrypt.hash(this.password, 10); // Encriptamos la contraseña con un saltRounds de 10
+                }
+                next();
+            });
+
+
+2. Segunda parte de la implementacion:
+    - Instalar las dependecias necesarias para cargar las variables de 
+    entorno (dotenv) y la dependecia para generar los token (jsonwebtoken)
+    - Luego definir la variable de entorno en el archivo .env, que es 
+    asi: 
+    ->
+    JWT_SECRET=messigod
+
+
+3. Tercera parte de la implementacion:
+    - Cofigurar el dotenv en el index
+
+
+4. Cuarta parte de la implementacion:
+    - En la carpeta de controladores, crear el archivo de control de 
+    autenticacion (authController.js).
+    - Dentro de este archivo se debe definir las funciones que manejen
+    el inicio de sesion y la generacion de tokens.
+
+            
