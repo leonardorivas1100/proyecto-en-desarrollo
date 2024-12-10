@@ -82,4 +82,32 @@ contiene 3 partes; header, payload y signature, cada uno separado por puntos per
     - Dentro de este archivo se debe definir las funciones que manejen
     el inicio de sesion y la generacion de tokens.
 
+
+5. Quinta parte de la implementacion
+    - Creamos el archvio de rutas llamado auth_routes.js. Alli definimos la ruta para el 
+    inicio de sesion y la generacion de tokens.
+    - Luego hacemos el llamado en el servidor(index), de la ruta definida para el inicio de sesion
+    - Por ultimo se hace el Request en un archivo .http, entonces al momento de hacer la Request
+    este se hara de forma que sea una solicitud (Post), colocando los campos exigidos que son
+    el correo y la contraseña asi:
+    ->
+    ### Probar inicio de sesión
+    POST http://localhost:10000/api/auth/login
+    Content-Type: application/json
+
+    {
+        "email": "juan@gmail.com",
+        "password": "juan123" 
+        # Siempre escribir la contraseña no encriptada
+    }
+
+
+6. Sexta parte de la implementacion:
+    - Para poder probar la autenticacion se necesita tener un usuario creado, entonces en mi caso
+    tenia que tener un post para los usuarios que fuera a registrar y registrarlo desde mi 
+    controlador, ruta, servidor y request, pero por buena practica. Pero si no hay mucho tiempo
+    este usuario puede resgistrarse directamente de cualquier manera siempre y cuando cumpla
+    con el correo y la contraseña que se esta exigiendo en la autenticacion.    
+
+
             
