@@ -9,7 +9,7 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
 import rolRoutes from './routes/rol_routes.js';
 
-// Configuración de variables de entorno
+// Configuración de las variables de entorno
 dotenv.config();
 
 // Importamos las rutas 
