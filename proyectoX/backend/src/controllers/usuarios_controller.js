@@ -1,5 +1,6 @@
 import Usuario from "../models/usuarios_model.js";
 
+// 1. Crear un nuevo Usuario.
 export const create_user = async (req, res) => {
     try {
 
@@ -26,12 +27,12 @@ export const create_user = async (req, res) => {
 
         // Crear y guardar el nuevo usuario
         const new_user = new Usuario({
-            numeroIdentificacion, 
-            nombres, 
-            apellidos, 
-            telefono, 
-            email, 
-            password, 
+            numeroIdentificacion,
+            nombres,
+            apellidos,
+            telefono,
+            email,
+            password,
             id_rol
         });
         await new_user.save();
@@ -43,10 +44,29 @@ export const create_user = async (req, res) => {
         });
 
     }
+
+    //  En caso de error al crear el usuario.
     catch (error) {
         console.error(error);
         res.status(500).json({
-            message: 'Error al crear el Usuario', 
-            error: error.message });
+            message: 'Error al crear el Usuario',
+            error: error.message
+        });
     }
 };
+
+// 2. Obtener todos los Usuarios.
+export const see_all_users = async (req, res) => {
+    try {
+        const users = await User.find(); // Busca todos los usuarios
+        res.status(200).json(users);
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: 'Error al obtener los usuarios',
+            error: error.message
+        });
+    }
+};
+
