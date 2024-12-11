@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import Usuario from '../models/usuarios_model.js'; // Ajusta la ruta al modelo
 import dotenv from 'dotenv';
 
-// Configurar dotenv para leer variables de entorno
+// Configurar dotenv para variables de entorno
 dotenv.config();
 
 // Función para generar un token JWT
