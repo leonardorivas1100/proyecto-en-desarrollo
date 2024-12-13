@@ -9,7 +9,7 @@ router.post('/', create_user);
 // 2. Ruta para obtener todos los usuarios.
 router.get('/', see_all_users);
 
-// 3. Ruta para editar un usuario por su Id.
+// 3. Ruta para editar un usuario por su numero de identificacion.
 router.put('/:numeroIdentificacion', update_user);
 
 
