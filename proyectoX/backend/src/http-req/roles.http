@@ -3,7 +3,7 @@ POST http://localhost:10000/api/roles
 Content-Type: application/json
 
 {
-  "nombre": "asistente"
+  "nombre": "cliente"
 }
 
 ###
