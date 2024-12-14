@@ -86,7 +86,7 @@ RolRouter.get('/', see_all_roles);
  *       500:
  *         description: Error al obtener el Rol
  */
-RolRouter.get('/:id', validatorHandler(getRolSchema, 'params'), see_rol);
+RolRouter.get('/:nombre', validatorHandler(getRolSchema, 'params'), see_rol);
 
 // 4. End-Point para actualizar un rol por ID.
 /**
@@ -123,7 +123,7 @@ RolRouter.get('/:id', validatorHandler(getRolSchema, 'params'), see_rol);
  *       500:
  *         description: Error interno al actualizar el rol
  */
-RolRouter.put('/:id', validatorHandler(updateRolSchema, 'body'), update_rol); 
+RolRouter.put('/:nombre', validatorHandler(updateRolSchema, 'body'), update_rol); 
 
 // 5. End-Point para eliminar un rol por ID.
 /**
