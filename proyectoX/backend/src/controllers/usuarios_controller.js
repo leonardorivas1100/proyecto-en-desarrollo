@@ -62,7 +62,10 @@ export const see_all_users = async (req, res) => {
         const user = await Usuario
         .find() // Busca todos los usuarios
         .populate('id_rol') // Busca y llena el campo id_rol con el nombre del rol correspondiente
-        res.status(200).json(user);
+        res.status(200).json({
+            message: 'Usuarios econtrados con exito!',
+            Usuarios_encontrados: user
+        });
     }
     catch (error) {
         console.error(error);
@@ -74,7 +77,7 @@ export const see_all_users = async (req, res) => {
 };
 
 
-// 3. Actualizar un usuario por su Id.
+// 3. Actualizar un usuario por su Numero de identificación.
 export const update_user = async (req, res) => {
     try {
             // Verificar si el usuario existe
@@ -145,5 +148,7 @@ export const update_user = async (req, res) => {
         });
     }
 };
+
+// 4. Buscar un usuario por su numero de identificacion 
 
 
