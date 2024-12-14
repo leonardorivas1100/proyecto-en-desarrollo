@@ -17,11 +17,11 @@ export const updateRolSchema = Joi.object({
   }),
 });
 
-// Esquema de validación para obtener un rol especiificado por su Id
+// Esquema de validación para obtener un rol especiificado por su nombre
 export const getRolSchema = Joi.object({
-  id: Joi.string().required().messages({
-    'string.base': 'El ID del rol debe ser una cadena de texto.',
-    'any.required': 'El ID del rol es obligatorio.'
+  nombre: Joi.string().required().messages({
+    'string.base': 'El nombre del rol debe ser una cadena de texto.',
+    'any.required': 'El nombre del rol es obligatorio.'
   }),
 });
 
