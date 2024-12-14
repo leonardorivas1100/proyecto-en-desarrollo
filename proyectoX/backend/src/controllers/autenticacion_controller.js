@@ -43,7 +43,7 @@ const login = async (req, res) => {
 
     // Enviar la respuesta con el token
     res.status(200).json({ 
-      message: '¡Inicio de sesión exitoso!',
+      message: 'Token generado exitosamente!',
       Token_generado: token 
     });
   } catch (error) {
