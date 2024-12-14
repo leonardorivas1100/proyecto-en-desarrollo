@@ -9,7 +9,7 @@ if (!process.env.MONGODB_URI) {
     process.exit(1); // Detenemos la ejecución si no está definida
 }
 
-const port = process.env.PORT || 9000;
+const port = process.env.PORT || 10000;
 
 const connectDB = async () => {
     try {
