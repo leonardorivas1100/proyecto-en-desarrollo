@@ -85,7 +85,7 @@ export const update_rol = async (req, res) => {
         const rolActualizado = await rol.save();
 
         res.status(200).json({
-            Request_success: 'Rol actualizado correctamente',
+            Request_success: 'Rol updated successfully',
             Rol_updated: rolActualizado,
         });
 
@@ -114,7 +114,7 @@ export const see_rol = async (req, res) => {
         }
         // Respuesta positiva
         res.status(200).json({
-            Request_success: ' ¡Rol encontrado con exito! ', rol
+            Request_success: ' Rol found successfully! ', rol
         });
 
         // Error cualquiera
@@ -127,22 +127,22 @@ export const see_rol = async (req, res) => {
     }
 };
 
-// 5. Eliminar un rol por su Id.
+// 5. Eliminar un rol por su nombre
 export const delete_rol = async (req, res) => {
     try {
         const { nombre } = req.params;
-        const rol = await Rol.findOneAndDelete(nombre); // Eliminarlo por su id
+        const rol = await Rol.findOneAndDelete({nombre}); // Eliminarlo por su nombre
 
         // Si no se encuetra el rol para eliminar
         if (!rol) {
             return res.status(404).json({
-                Happened_an_error: 'Rol no encontrado'
+                Happened_an_error: 'Rol not found'
             });
         }
 
         // Respuesta a si todo fue correcto eliminando el rol especificado
         res.status(200).json({
-            Request_success: 'Rol eliminado correctamente',
+            Request_success: ' Rol eliminated successfully! ',
             Rol_eliminado: rol
         });
     }
