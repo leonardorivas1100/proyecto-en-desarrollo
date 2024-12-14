@@ -9,7 +9,8 @@ export const create_rol = async (req, res) => {
         // Verificar si el Rol ya existe
         const existeRol = await Rol.findOne({ nombre });
         if (existeRol) {
-            return res.status(400).json({ message: 'Ya existe un rol con este nombre' });
+            return res.status(400).json({ 
+                Error_name: 'Ya existe un rol con este nombre' });
         }
 
         // Crear y guardar el nuevo rol
@@ -18,8 +19,8 @@ export const create_rol = async (req, res) => {
 
         // Responder con éxito
         res.status(201).json({
-            message: 'Rol creado exitosamente',
-            documento_creado: nuevoRol
+            Request_success: ' ¡Rol created successfully!',
+            New_rol: nuevoRol
         });
 
     }
@@ -28,82 +29,93 @@ export const create_rol = async (req, res) => {
     catch (error) {
         console.error(error);
         res.status(500).json({
-            message: 'Error al crear el rol',
+            Happened_an_error: 'Error al crear el rol',
             error: error.message
         });
     }
 };
+
 
 // 2. Obtener todos los Roles.
 export const see_all_roles = async (req, res) => {
     try {
         const roles = await Rol.find(); // Busca todos los roles
-        res.status(200).json(roles);
+        res.status(200).json({
+            Request_success: ' ¡Roles found successfully! ',
+            Roles_found: roles
+        });
     }
     catch (error) {
         console.error(error);
         res.status(500).json({
-            message: 'Error al obtener los roles',
+            Happened_an_error: 'Error al obtener los roles',
             error: error.message
         });
     }
 };
 
-// 3. Actualizar un rol por Id.
+
+// 3. Actualizar un rol por su nombre.
 export const update_rol = async (req, res) => {
     try {
         // Verificar si el Rol existe
-        const { id } = req.params;
-        const { nombre } = req.body;
-        const rol = await Rol.findById(id);
+        const { nombre } = req.params;
+        const rol = await Rol.findOne({ nombre });
 
-        // En caso de no haya un rol para actualizar
+        // En caso de que no haya un rol para actualizar
         if (!rol) {
             return res.status(404).json({
-                message: 'Rol no encontrado'
+                Happened_an_error: 'No se encuentra este rol para ser actualizado',
             });
         }
 
         // Verificar si el nuevo nombre ya está en uso por otro rol
-        const existeRol = await Rol.findOne({ nombre });
-        if (existeRol && existeRol.id !== id) {
+        const { nombre: nuevoNombre } = req.body; // Nuevo nombre desde el cuerpo de la solicitud
+        const existeRol = await Rol.findOne({ nombre: nuevoNombre });
+
+        if (existeRol && existeRol.nombre !== rol.nombre) {
             return res.status(400).json({
-                message: 'Ya existe un rol con este nombre'
+                Happened_an_error: 'Ya existe un rol con este nombre',
             });
         }
+ 
 
         // Actualizar el rol
-        rol.nombre = nombre;
+        rol.nombre = nuevoNombre;
         const rolActualizado = await rol.save();
 
         res.status(200).json({
-            message: 'Rol actualizado correctamente',
-            documento_actualizado: rolActualizado,
+            Request_success: 'Rol actualizado correctamente',
+            Rol_updated: rolActualizado,
         });
 
     } catch (error) {
         console.error(error);
         res.status(500).json({
-            message: 'Error al actualizar el rol',
+            Happened_an_error: 'Error al actualizar el rol',
             error: error.message,
         });
     }
 };
 
 
-// 4. Buscar un rol por su Id.
+
+// 4. Buscar un rol por su nombre.
 export const see_rol = async (req, res) => {
     try {
-        const { id } = req.params;
-        const rol = await Rol.findById(id); // Buscar un rol por el _id
+        const { nombre } = req.params;
+        const rol = await Rol.findOne({ nombre }); // Buscar un rol por el nombre
 
         // Si el rol no se encuetra
         if (!rol) {
             return res.status(404).json({
-                message: 'Rol no encontrado'
+                Happened_an_error: 'Rol no encontrado, hay un error en la busqueda o en la logica'
             });
         }
-        res.status(200).json(rol);
+        // Respuesta positiva
+        res.status(200).json({
+            Request_success: ' ¡Rol encontrado con exito! ', rol
+        });
 
         // Error cualquiera
     } catch (error) {
@@ -118,19 +130,20 @@ export const see_rol = async (req, res) => {
 // 5. Eliminar un rol por su Id.
 export const delete_rol = async (req, res) => {
     try {
-        const { id } = req.params;
-        const rol = await Rol.findByIdAndDelete(id); // Eliminarlo por su id
+        const { nombre } = req.params;
+        const rol = await Rol.findOneAndDelete(nombre); // Eliminarlo por su id
 
+        // Si no se encuetra el rol para eliminar
         if (!rol) {
             return res.status(404).json({
-                message: 'Rol no encontrado'
+                Happened_an_error: 'Rol no encontrado'
             });
         }
 
         // Respuesta a si todo fue correcto eliminando el rol especificado
         res.status(200).json({
-            message: 'Rol eliminado correctamente',
-            documento_eliminado: rol
+            Request_success: 'Rol eliminado correctamente',
+            Rol_eliminado: rol
         });
     }
 
@@ -138,7 +151,7 @@ export const delete_rol = async (req, res) => {
     catch (error) {
         console.error(error);
         res.status(500).json({
-            message: 'Error al eliminar el rol',
+            Request_failed: 'Error al eliminar el rol',
             error: error.message
         });
     }
