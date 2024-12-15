@@ -27,8 +27,8 @@ export const getRolSchema = Joi.object({
 
 // Esquema de validación para eliminar un rol 
 export const deleteRolSchema = Joi.object({
-  id: Joi.string().required().messages({
-    'string.base': 'El ID del rol debe ser una cadena de texto.',
-    'any.required': 'El Id del rol es un campo obligatorio.'
+  nombre: Joi.string().required().messages({
+    'string.base': 'El nombre del rol debe ser una cadena de texto.',
+    'any.required': 'El nombre del rol es un campo obligatorio.'
   }),
 });

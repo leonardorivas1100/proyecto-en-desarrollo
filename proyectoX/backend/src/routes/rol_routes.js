@@ -147,7 +147,7 @@ RolRouter.put('/:nombre', validatorHandler(updateRolSchema, 'body'), update_rol)
  *       500:
  *         description: Error al eliminar el Rol
  */
-RolRouter.delete('/:id', validatorHandler(deleteRolSchema, 'params'), delete_rol);
+RolRouter.delete('/:nombre', validatorHandler(deleteRolSchema, 'params'), delete_rol);
 
 
 // Exportamos las rutas para usarlas en otros archivos.

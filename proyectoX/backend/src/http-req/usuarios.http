@@ -1,32 +1,37 @@
-### Crear un nuevo usuario
+### Crear un nuevo usuario.
 POST http://localhost:10000/api/usuarios
 Content-Type: application/json
 
 {
-  "numeroIdentificacion": "30451058",
-  "nombres": "Alexander",
-  "apellidos": "Perdomo Parra",
-  "telefono": "0123456789",
-  "email": "alex@gmail.com",
-  "password": "alex123",
-  "id_rol": "675bcb52b3616b8256cbf0f2"
+  "numeroIdentificacion": "123",
+  "nombres": "Sebastian",
+  "apellidos": "Arboleda Mejica",
+  "telefono": "9876543210",
+  "email": "sebas2@gmail.com",
+  "password": "sebas123",
+  "nombre_rol": "administrador"
 }
 ###
 
-### Listar todos los usuarios
-GET http://localhost:10000/api/usuarios
+### Lista de usuarios individual y o grupalmente.
+GET http://localhost:10000/api/usuarios/
 ###
 
-### Editar un usuario por Id
+### Editar un usuario por su numero de identificacion.
 PUT http://localhost:10000/api/usuarios/2289897
 Content-Type: application/json
 
 {
+  "nuevoNumeroIdentificacion": "2289897",
   "nombres": "Juan Pablito",
   "apellidos": "Diaz Balcazar",
   "telefono": "3027887963",
   "email": "juan@gmail.com",
-  "password": "juan123",
-  "id_rol": "6757cc678350e6013f47f4cb"
+  "password": "juan12",
+  "nombre_rol": "administrador"
 }
+###
+
+### Eliminar un usuario por su numero de Identificacion.
+DELETE http://localhost:10000/api/usuarios/123
 ###

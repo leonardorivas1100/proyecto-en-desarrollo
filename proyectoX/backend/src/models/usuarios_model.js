@@ -37,7 +37,7 @@ const usuarioSchema = new mongoose.Schema({
     required: true 
   },
 
-  id_rol: {
+  nombre_rol: {
     type: mongoose.Schema.Types.ObjectId,  
     required: true,
     ref: 'Rol',
