@@ -3,18 +3,18 @@ POST http://localhost:10000/api/usuarios
 Content-Type: application/json
 
 {
-  "numeroIdentificacion": "123",
-  "nombres": "Sebastian",
-  "apellidos": "Arboleda Mejica",
-  "telefono": "9876543210",
-  "email": "sebas2@gmail.com",
-  "password": "sebas123",
-  "nombre_rol": "administrador"
+  "numeroIdentificacion": "30451058",
+  "nombres": "Leonardo",
+  "apellidos": "Rivas",
+  "telefono": "3027887962",
+  "email": "leo@gmail.com",
+  "password": "leonardo123",
+  "nombre_rol": "asistente"
 }
 ###
 
 ### Lista de usuarios individual y o grupalmente.
-GET http://localhost:10000/api/usuarios/
+GET http://localhost:10000/api/usuarios/30451058
 ###
 
 ### Editar un usuario por su numero de identificacion.
