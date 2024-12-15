@@ -32,7 +32,7 @@ const RolRouter = express.Router();
  * /api/roles:
  *   post:
  *     summary: Crear un nuevo rol
- *     tags: [Roles]
+ *     tags: [Rol]
  *     requestBody:
  *       required: true
  *       content:
@@ -55,7 +55,7 @@ RolRouter.post('/',validatorHandler(createRolSchema, 'body'), create_rol);
  * /api/roles:
  *   get:
  *     summary: Mirar todos los roles de la base de datos
- *     tags: [Roles]
+ *     tags: [Rol]
  *     responses:
  *       201:
  *         description: Lista de roles 
@@ -64,20 +64,20 @@ RolRouter.post('/',validatorHandler(createRolSchema, 'body'), create_rol);
  */
 RolRouter.get('/', see_all_roles); 
 
-// 3. End-Point para obtener un rol por ID.
+// 3. End-Point para obtener un rol por su nombre
 /**
  * @swagger
- * /api/roles/{id}:
+ * /api/roles/{nombre}:
  *   get:
- *     summary: Obtener un rol especificado por su Id
- *     tags: [Roles]
+ *     summary: Obtener un rol especificado por su nombre
+ *     tags: [Rol]
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: Nombre del rol
  *         required: true
  *         schema:
  *           type: string
- *         description: Id del Rol
+ *         description: Nombre 
  *     responses:
  *       200:
  *         description: Rol encontrado
@@ -95,7 +95,7 @@ RolRouter.get('/:nombre', validatorHandler(getRolSchema, 'params'), see_rol);
  *   put:
  *     summary: Actualizar un Rol
  *     description: Actualiza los detalles de un rol. Solo se pueden modificar los campos proporcionados.
- *     tags: [Roles]
+ *     tags: [Rol]
  *     parameters:
  *       - in: path
  *         name: id
@@ -131,7 +131,7 @@ RolRouter.put('/:nombre', validatorHandler(updateRolSchema, 'body'), update_rol)
  * /api/roles/{id}:
  *   delete:
  *     summary: Eliminar un Rol por su Id
- *     tags: [Roles]
+ *     tags: [Rol]
  *     parameters:
  *       - in: path
  *         name: id
