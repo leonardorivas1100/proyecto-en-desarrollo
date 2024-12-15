@@ -29,6 +29,7 @@ const options = {
   },
   apis: [
     './src/routes/rol_routes.js',
+    './src/routes/usuarios_routes.js',
   ]
 };
 
