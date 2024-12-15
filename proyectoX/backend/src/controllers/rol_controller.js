@@ -114,14 +114,15 @@ export const see_rol = async (req, res) => {
         }
         // Respuesta positiva
         res.status(200).json({
-            Request_success: ' Rol found successfully! ', rol
+            Request_success: ' Rol found successfully! ',
+            Rol_found: rol
         });
 
         // Error cualquiera
     } catch (error) {
         console.error(error);
         res.status(500).json({
-            message: 'Error al obtener el rol',
+            Request_failed: 'Error al obtener el rol',
             error: error.message
         });
     }
