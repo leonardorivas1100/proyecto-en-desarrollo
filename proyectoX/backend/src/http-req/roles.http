@@ -3,7 +3,7 @@ POST http://localhost:10000/api/roles
 Content-Type: application/json
 
 {
-  "nombre": "cosit"
+  "nombre": "cliente"
 }
 ###
 
@@ -12,12 +12,11 @@ GET http://localhost:10000/api/roles
 ###
 
 ### Obtener un rol por su nombre
-GET http://localhost:10000/api/roles/asistente
+GET http://localhost:10000/api/roles/administrador
 ###
 
-
 ### Actualizar un rol por su nombre
-PUT http://localhost:10000/api/roles/asistent
+PUT http://localhost:10000/api/roles/asistente
 Content-Type: application/json
 
 {
@@ -26,7 +25,7 @@ Content-Type: application/json
 ###
 
 ### Eliminar un rol por su ID
-DELETE http://localhost:10000/api/roles/675cc151d1ce994b119f9d9d
+DELETE http://localhost:10000/api/roles/cliente
 ###
 
 
