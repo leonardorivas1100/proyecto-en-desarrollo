@@ -14,7 +14,7 @@ const generarToken = (usuario) => {
       email: usuario.email, 
       nombres: usuario.nombres, // Agrega nombres si está en tu modelo
       apellidos: usuario.apellidos, // Agrega apellidos si está en tu modelo
-      roles: usuario.id_rol // Cambia esto si los roles están estructurados de otra forma
+      rol: usuario.nombre_rol// Cambia esto si los roles están estructurados de otra forma
     },
     process.env.JWT_SECRET, // Clave secreta desde el archivo .env
     { expiresIn: '12h' } // Tiempo de expiración del token
@@ -29,27 +29,30 @@ const login = async (req, res) => {
     // Verificar si el usuario existe
     const usuario = await Usuario.findOne({ email });
     if (!usuario) {
-      return res.status(404).json({ message: 'Usuario no encontrado' });
+      return res.status(404).json({ 
+        Request_failed: 'No se encontro ningún usuario con el correo ingresado.' });
     }
 
     // Verificar si la contraseña es válida
     const esValida = await bcrypt.compare(password, usuario.password);
     if (!esValida) {
-      return res.status(401).json({ message: 'Contraseña incorrecta' });
+      return res.status(401).json({ 
+        Request_failed: 'La contraseña es incorrecta' });
     }
 
     // Generar el token JWT
     const token = generarToken(usuario);
+    console.log(` Token generado exitosamente!: ${token}`)
 
     // Enviar la respuesta con el token
     res.status(200).json({ 
-      message: 'Token generado exitosamente!',
-      Token_generado: token 
+      Request_success: 'Token generado exitosamente!',
+      Token_generated: token 
     });
   } catch (error) {
     console.error('Error en el login:', error.message);
     res.status(500).json({ 
-      message: 'Error interno del servidor', 
+      Request_failed: 'Error interno del servidor', 
       error: error.message 
     });
   }
