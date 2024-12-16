@@ -1,31 +1,33 @@
 ### Crear un nuevo Rol
 POST http://localhost:10000/api/roles
 Content-Type: application/json
+Authorization: 
 
 {
-  "nombre": "cliente"
+  "nombre": ""
 }
 ###
 
 ### Obtener todos los roles
 GET http://localhost:10000/api/roles
+Authorization:  
 ###
 
 ### Obtener un rol por su nombre
-GET http://localhost:10000/api/roles/administrador
+GET http://localhost:10000/api/roles/
 ###
 
 ### Actualizar un rol por su nombre
-PUT http://localhost:10000/api/roles/asistente
+PUT http://localhost:10000/api/roles/
 Content-Type: application/json
 
 {
-  "nombre": "asistente"
+  "nombre": ""
 }
 ###
 
 ### Eliminar un rol por su ID
-DELETE http://localhost:10000/api/roles/cliente
+DELETE http://localhost:10000/api/roles/lllla
 ###
 
 
