@@ -110,13 +110,7 @@ export const update_user = async (req, res) => {
             const { numeroIdentificacion } = req.params;
             const { nuevoNumeroIdentificacion, nombres, apellidos, telefono, email, password, nombre_rol  } = req.body;
             const user = await Usuario.findOne({ numeroIdentificacion });
-    
-            if (!numeroIdentificacion || !nuevoNumeroIdentificacion) {
-                return res.status(400).json({
-                    Request_failed: "Faltan campos necesarios en la solicitud."
-                });
-            }
-            
+
             // En caso de no haya un usuario para actualizar
             if (!user) {
                 return res.status(404).json({
@@ -132,6 +126,7 @@ export const update_user = async (req, res) => {
                         Request_failed: `Ya existe un usuario con el número de identificación: ${nuevoNumeroIdentificacion}`
                     });
                 }
+                user.numeroIdentificacion = nuevoNumeroIdentificacion; // Actualizar el número de identificación
             }
     
             // Verificar si el nuevo nombre ya está en uso por otro usuario
@@ -154,7 +149,7 @@ export const update_user = async (req, res) => {
             const phone_user_now = await Usuario.findOne({ telefono });
             if (phone_user_now && phone_user_now.numeroIdentificacion !== numeroIdentificacion) {
                 return res.status(400).json({
-                    Request_failed: `Ya existe un usurario con el numero telfonico: ${telefono} `
+                    Request_failed: `Ya existe un usurario con el numero telfonico: ${telefono}`
                 });
             }
 
@@ -162,14 +157,18 @@ export const update_user = async (req, res) => {
             const rol = await Rol.findOne({ nombre: nombre_rol });
             if (!rol) {
                 return res.status(404).json({
-                    Request_failed: `No se encontró un rol como este: ${nombre_rol}`
+                    Request_failed: `No se encontró un rol con este nombre: ${nombre_rol}`
                 });
             }
 
-            // Actualizar el usuario
-        if (nuevoNumeroIdentificacion) {
-            user.numeroIdentificacion = nuevoNumeroIdentificacion;
-        }
+            // Verificar si el rol ya está en uso por otro usuario
+            const rol_user_now = await Usuario.findOne({ nombre_rol: rol._id });
+            if (rol_user_now && rol_user_now._id.toString() !== user._id.toString()) {
+                return res.status(400).json({
+                    Request_failed: `Ya existe un usuario con el rol: ${nombre_rol}`,
+                });
+            }
+
         user.nombres = nombres;
         user.apellidos = apellidos;
         user.telefono = telefono;
@@ -228,12 +227,12 @@ export const found_user = async (req, res) => {
 export const delete_user = async (req, res) => {
     try {
         const { numeroIdentificacion } = req.params;
-        const user = await Usuario.findOneAndDelete({ numeroIdentificacion }); // Eliminarlo por su nombre
+        const user = await Usuario.findOneAndDelete({ numeroIdentificacion }); 
 
         // Si no se encuetra el usuario para eliminar
         if (!user) {
             return res.status(404).json({
-                Request_failed: `Usuario no encontrado con la identificacion: ${numeroIdentificacion}`
+                Request_failed: `No se encuentra un usuario con el numero de identificacion: ${numeroIdentificacion}`
             });
         }
 
