@@ -1,9 +1,30 @@
-### Probar inicio de sesión
+### Autenticar administrador.
 POST http://localhost:10000/api/auth/login
 Content-Type: application/json
 
 {
   "email": "juan@gmail.com",
-  "password": "juan123" 
+  "password": "juanpablo123456" 
   # Siempre escribir la contraseña no encriptada
 }
+
+### Autenticar asistente.
+POST http://localhost:10000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "sebas@gmail.com",
+  "password": "sebastian123456" 
+  # Siempre escribir la contraseña no encriptada
+}
+
+### Autenticar cliente.
+POST http://localhost:10000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "alex@gmail.com",
+  "password": "alexander123" 
+  # Siempre escribir la contraseña no encriptada
+}
+  
