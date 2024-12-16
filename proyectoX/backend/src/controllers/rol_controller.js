@@ -109,7 +109,7 @@ export const see_rol = async (req, res) => {
         // Si el rol no se encuetra
         if (!rol) {
             return res.status(404).json({
-                Happened_an_error: 'Rol no encontrado, hay un error en la busqueda o en la logica'
+                Request_failed: 'Rol no encontrado, hay un error en la busqueda o en la logica'
             });
         }
         // Respuesta positiva
