@@ -32,7 +32,7 @@ const verifyRole = (rolesPermitidos) => async (req, res, next) => {
     const role = await Role.findById(userRoleId);
     if (!role) {
         return res.status(403).json({ 
-            Acces_failed: 'Rol no encontrado, acceso denegado' });
+            Access_failed: 'Rol no encontrado, acceso denegado' });
     }
 
     // Verifica si el nombre del rol está en los roles permitidos
@@ -40,7 +40,8 @@ const verifyRole = (rolesPermitidos) => async (req, res, next) => {
         return next();
     }
 
-    return res.status(403).json({ message: 'Acceso denegado' });
+    return res.status(403).json({ 
+        Autenticacion_failed: 'Acceso denegado' });
     } catch (error) {
         console.error('Error en verifyRole:', error.message);
         return res.status(500).json({ 
