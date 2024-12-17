@@ -28,8 +28,9 @@ const options = {
     ],
   },
   apis: [
+    './src/routes/auth_routes.js',
     './src/routes/rol_routes.js',
-    './src/routes/usuarios_routes.js',
+    './src/routes/usuarios_routes.js'
   ]
 };
 
