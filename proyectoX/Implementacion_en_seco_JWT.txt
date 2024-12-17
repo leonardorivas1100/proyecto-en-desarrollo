@@ -283,5 +283,223 @@ esta linea:
 
 
 
+7. Septima parte de implementacion:
+    - Una vez generado el token se habrá hecho la autenticacion correctamente, se verifico que eres el usuario que dices ser ingresando correo y contraseña.
+
+    - Entonces crea una carpeta llamada middlewares y dentro de esta carpeta vas a crear el middleware para verificar que el token esta presente en la
+    solicitud y verificar que el token proporcionado es el correcto.
+        ° Para eso haces lo siguiente:
+
+        detro de la carpeta middleware creas el archivo (auth.js), dentro de este archivo crearas la logica de verificacion del token implementado.
+        Entonces dentro de este archivo debe haber lo siguiente:
+
+                import jwt from 'jsonwebtoken';
+                import Role from '../models/rol_model.js'
+
+                // Middleware para verificar el token de autenticación
+                const verifyToken = (req, res, next) => {
+                    const token = req.header('Authorization');
+
+                    if (!token) {
+                        return res.status(401).json({ 
+                            Autenticacion_failed: 'Token de autenticación no proporcionado' });
+                    }
+
+                    try {
+                        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+                        req.user = decoded; // Decodificamos el token y lo adjuntamos a la solicitud
+                        console.log('Token decodificado:', decoded); // Verifica el contenido
+                        next();
+                    } catch (error) {
+                        return res.status(401).json({ 
+                            Autenticacion_failed: 'Token de autenticación inválido' });
+                    }
+                };
+
+
+                // Middleware para verificar el rol del usuario
+                const verifyRole = (rolesPermitidos) => async (req, res, next) => {
+                    try {
+
+                    const userRoleId = req.user.rol;  
+
+                    // Consulta el nombre del rol desde la base de datos
+                    const role = await Role.findById(userRoleId);
+                    if (!role) {
+                        return res.status(403).json({ 
+                            Access_failed: 'Rol no encontrado, acceso denegado' });
+                    }
+
+                    // Verifica si el nombre del rol está en los roles permitidos
+                    if (rolesPermitidos.includes(role.nombre)) {
+                        return next();
+                    }
+
+                    return res.status(403).json({ 
+                        Autenticacion_failed: 'Acceso denegado' });
+                    } catch (error) {
+                        console.error('Error en verifyRole:', error.message);
+                        return res.status(500).json({ 
+                            Request_failed: 'Error interno del servidor' });
+                    }
+                };
+
+
+                // Exportando las funciones
+                export { verifyToken, verifyRole };
+
+
+        ° SIEMPRE hay que tener en cuenta nuestros archivos, como los tenemos nombrados, si se llaman rolModel, o rol_models, o si en los usuarios
+        el nombre no sea nombre_rol, si no rol, o name_rol, de todo eso dependerá este archivo, ya que si se escribe un campo incorrectamente el token
+        no se verificará y no se podrá acceder a las rutas que vamos a autenticar.
+
+
+8. Octava parte de implementacion.
+    - Entonces, luego de crear las funciones que van a generar el token, vamos a implementar estas constantes en nuestras rutas para que al momento de 
+    realizarlas sea necesario autenticar primero el usuario y verificar si ese usuario tiene acceso a esas rutas considerando su rol.
+        ° Entonces haremos lo siguiente:
+
+        A. Abrimos el archivo de rutas al cual queremos agregar autenticacion en mi caso voy a colocarle autenticacion a las rutas de usuario.
+            Asi se ve una sola ruta para crear un usuario:
+
+                import express from 'express';
+                import { validatorHandler } from '../middleware/validator.handler.js';
+                import { createUserSchema, updateUserSchema } from '../validators/usuario_validator.js';
+                import { create_user, see_all_users, update_user, found_user, delete_user } from '../controllers/usuarios_controller.js';
+
+                const router = express.Router();
+
+                /**
+                * @swagger
+                * tags:
+                *   name: Usuario
+                *   description: Operaciones relacionadas con usuarios.
+                */
+                /**
+                * @swagger
+                * components:
+                *   schemas:
+                *     Usuario:
+                *       type: object
+                *       properties:
+                *         numeroIdentificacion:
+                *           type: string
+                *           description: Numero de identificacion del usuario.
+                *         nombres: 
+                *           type: string
+                *           descripcion: Nombres del usuario.
+                *         apellidos:
+                *           type: string
+                *           descripcion: Apellidos del usuario.         
+                *         telefono:
+                *           type: string
+                *           descripcion: Numero telefonico del usuario.  
+                *         email:
+                *           type: string
+                *           descripcion: Correo electrónico del usuario.  
+                *         password:
+                *           type: string
+                *           descripcion: Contraseña del usuario.  
+                *         nombre_rol:
+                *           type: string
+                *           descripcion: Nombre del rol que pertenece al usuario  
+                *       required:
+                *         - numeroIdentificacion
+                *         - nombres
+                *         - apellidos
+                *         - telefono
+                *         - email     
+                *         - password 
+                *         - nombre_rol 
+                */
+
+
+                // 1. Ruta para crear un nuevo usuario.
+                /**
+                * @swagger
+                * /api/usuarios:
+                *   post:
+                *     summary: Crear un nuevo usuario
+                *     tags: [Usuario]
+                *     requestBody:
+                *       required: true
+                *       content:
+                *         application/json:
+                *           schema:
+                *             $ref: '#/components/schemas/Usuario'
+                *     responses:
+                *       201:
+                *         description: User created successfully
+                *       400:
+                *         description: El usuario ya existe
+                *       500:
+                *         description: Error al crear el usuario
+                */
+                router.post('/', validatorHandler(createUserSchema, "body"), create_user);
+
+
+        B. Luego de abrirla vamos a importar las funciones que acabamos de crear para la autenticacion de usuarios.
+            ° Asi:
+
+                import {  verifyToken, verifyRole } from '../middleware/auth.js';
+
+
+        C. Entonces, depues de importarla vamos a colocarla dentro de la ruta:
+            ° Asi:
+
+                router.post('/', verifyToken, verifyRole(['asistente']), validatorHandler(createUserSchema, "body"), create_user);
+
+                verifyToken: Es el middleware que creamos en el archivo auth.js para verificar nada mas que hay un token presente.
+                verifyRole: Es el middleware que creamos *****, para verificar que le token que implementamos es el token generado por un usuario 
+                con un role especifico en este caso: "asistente".
+                - Debido a queda cada usuario esta identificado con un rol, cada usuario tendra opciones y necesidades distintas entonces valga la 
+                redondancia tendrá roles distintos. 
+                - Si un usuario con un rol 'administrador' en tu proyecto debe crear usuarios entonces la ruta se escribe asi: verifyRole(['administrador']),
+                y entonces los usuarios con el rol de administrador podrán crear un usuario porque estan autenticados para ello.
+
+
+
+9. Novena parte de la implementacion.
+    - Una vez hecha la octava parte de la implementacion a las rutas que apicamos la autenticacion ya no se podrá acceder a ellas sin su respectiva 
+    autenticacion pues.
+
+    ° Entonces en nuestro archvio de solicitudes osea (usuarios.http), tenemos que hacer una modificacion para poder hacer la solicitud.
+
+    - Entonces vamos a editar nuestro archivo request asi:
+
+                ### Crear un nuevo usuario.
+                POST http://localhost:10000/api/usuarios
+                Content-Type: application/json
+                Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsImVtYWlsIjoic2ViYXNAZ21haWwuY29tIiwibm9tYnJlcyI6IlNlYmFzIiwiYXBlbGxpZG9zIjoiQXJib2wiLCJyb2wiOiI2NzVkZDQxNTA5MWU0YzYyM2YyNWMwMTUiLCJpYXQiOjE3MzQ0NjkwODksImV4cCI6MTczNDUxMjI4OX0.O4iaiF6CG8WZVjwaXf04VivnJpbKKg5rUkXY0mqaBPo
+
+                {
+                "numeroIdentificacion": "547878454651516651651",
+                "nombres": "Samuel Abraham",
+                "apellidos": "Rivas Villegas",
+                "telefono": "025166515169478489",
+                "email": "samuel@gmail.com",
+                "password": "samuel123",
+                "nombre_rol": "asistente"
+                }
+                ###
+    
+
+        ° Abajo de Content-Type, vamos a escribir (Authorization), esto es lo que verificará de alguna manera el token que vamos a implementar.
+        - Entonces vamos a generar el token del usuario con el rol que tiene el acceso a la ruta ( Lo que explique a lo ultimo de la octava parte), entonces
+        despues de generar el token, lo pegas en esa parte como se ve en el codigo.
+
+        - Si el usuario no tiene acceso a la ruta es porque es un token con un rol sin autorizacion para realizar esas solicitudes, entonces habrás generado 
+        un token de un usuario con un rol incorrecto .
+        - Si los unicos que pueden crear un usuario son los administradores, y generas un token de un usuario que es "asistente", la respuesta sera algo como 
+        "Acceso denegado". Pero si generas el token de un administrador tendrás acceso a la ruta y por ende podrás hacer la solicitud.
+
+        - Una vez hecho este punto entenderas como funciona la implementacion de un token de seguridad en tu proyecto,
+
+        ----- ánimo no es complicado:) 
+
+
+
+
+
 
             
