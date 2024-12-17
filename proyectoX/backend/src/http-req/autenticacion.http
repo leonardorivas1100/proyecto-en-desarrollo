@@ -14,7 +14,7 @@ Content-Type: application/json
 
 {
   "email": "sebas@gmail.com",
-  "password": "sebastian123456" 
+  "password": "Sebas123456789" 
   # Siempre escribir la contraseña no encriptada
 }
 
@@ -23,8 +23,8 @@ POST http://localhost:10000/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "alex@gmail.com",
-  "password": "alexander123" 
+  "email": "leo@gmail.com",
+  "password": "leonardo123" 
   # Siempre escribir la contraseña no encriptada
 }
   
