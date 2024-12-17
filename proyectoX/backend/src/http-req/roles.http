@@ -8,13 +8,9 @@ Authorization:
 }
 ###
 
-### Obtener todos los roles
-GET http://localhost:10000/api/roles
-Authorization:  
-###
-
-### Obtener un rol por su nombre
+### Obtener todos los roles individual o grupalmente.
 GET http://localhost:10000/api/roles/
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTdkOWJlYTQ3YWFhOTkwYzI1OTJkNCIsImVtYWlsIjoianVhbkBnbWFpbC5jb20iLCJub21icmVzIjoiSnVhbiIsImFwZWxsaWRvcyI6IkRpYXoiLCJyb2wiOiI2NzVkZDU4Y2E0YzdjZTQ1MzAyZWE3YmQiLCJpYXQiOjE3MzQ0NjQ2MjYsImV4cCI6MTczNDUwNzgyNn0.78feoStAs1I8e7N3UK7kGMGrecGUXSX7YubG8dSlZyI
 ###
 
 ### Actualizar un rol por su nombre
