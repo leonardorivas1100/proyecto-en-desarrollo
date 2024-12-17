@@ -44,12 +44,12 @@ export const create_user = async (req, res) => {
                 Request_failed: 'Ya existe un usuario con este numero telefonico' });
         }
 
-        // Verificar si ya hay un usuario con el mismo rol
-        const usuario_existente5 = await Usuario.findOne({ nombre_rol: rol._id });
-        if (usuario_existente5) {
-            return res.status(400).json({ 
-                Request_failed: `Ya existe un usuario con el rol: ${nombre_rol}` });
-        }
+        // // Verificar si ya hay un usuario con el mismo rol
+        // const usuario_existente5 = await Usuario.findOne({ nombre_rol: rol._id });
+        // if (usuario_existente5) {
+        //     return res.status(400).json({ 
+        //         Request_failed: `Ya existe un usuario con el rol: ${nombre_rol}` });
+        // }
 
         // Crear y guardar el nuevo usuario
         const new_user = new Usuario({
