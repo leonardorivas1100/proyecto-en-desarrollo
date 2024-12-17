@@ -64,10 +64,7 @@ RolRouter.post('/', verifyToken, verifyRole(['administrador']), validatorHandler
  *       500:
  *         description: Error al obtener los roles
  */
-RolRouter.get('/',
-     verifyToken,
-      verifyRole(['cliente']),
-       see_all_roles); 
+RolRouter.get('/', verifyToken, verifyRole(['asistente', 'administrador']), see_all_roles); 
 
 // 3. End-Point para obtener un rol por su nombre
 /**
@@ -90,7 +87,7 @@ RolRouter.get('/',
  *       500:
  *         description: Error al obtener el Rol
  */
-RolRouter.get('/:nombre', validatorHandler(getRolSchema, 'params'), see_rol);
+RolRouter.get('/:nombre', verifyToken, verifyRole(['cliente']), validatorHandler(getRolSchema, 'params'), see_rol);
 
 // 4. End-Point para actualizar un rol por su nombre.
 /**
@@ -125,7 +122,7 @@ RolRouter.get('/:nombre', validatorHandler(getRolSchema, 'params'), see_rol);
  *       500:
  *         description: Error interno al actualizar el rol
  */
-RolRouter.put('/:nombre', validatorHandler(updateRolSchema, 'body'), update_rol); 
+RolRouter.put('/:nombre', verifyToken, verifyRole(['administrador']), validatorHandler(updateRolSchema, 'body'), update_rol); 
 
 // 5. End-Point para eliminar un rol por su nombre.
 /**
@@ -148,7 +145,7 @@ RolRouter.put('/:nombre', validatorHandler(updateRolSchema, 'body'), update_rol)
  *       500:
  *         description: Error al eliminar el Rol
  */
-RolRouter.delete('/:nombre', validatorHandler(deleteRolSchema, 'params'), delete_rol);
+RolRouter.delete('/:nombre', verifyToken, verifyRole(['asistente']), validatorHandler(deleteRolSchema, 'params'), delete_rol);
 
 
 // Exportamos las rutas para usarlas en otros archivos.
