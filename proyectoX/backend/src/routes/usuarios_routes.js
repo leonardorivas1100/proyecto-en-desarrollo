@@ -2,6 +2,7 @@ import express from 'express';
 import { validatorHandler } from '../middleware/validator.handler.js';
 import { createUserSchema, updateUserSchema } from '../validators/usuario_validator.js';
 import { create_user, see_all_users, update_user, found_user, delete_user } from '../controllers/usuarios_controller.js';
+import {  verifyToken, verifyRole } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -71,7 +72,7 @@ const router = express.Router();
  *       500:
  *         description: Error al crear el usuario
  */
-router.post('/', validatorHandler(createUserSchema, "body"), create_user);
+router.post('/', verifyToken, verifyRole(['asistente']), validatorHandler(createUserSchema, "body"), create_user);
 
 
 // 2. Ruta para obtener todos los usuarios.
@@ -87,7 +88,7 @@ router.post('/', validatorHandler(createUserSchema, "body"), create_user);
  *       500:
  *         description: Error al obtener los usuarios
  */
-router.get('/', see_all_users);
+router.get('/', verifyToken, verifyRole(['asistente']), see_all_users);
 
 
 // 3. Ruta para buscar un usuario por su numero de identificacion.
@@ -111,7 +112,7 @@ router.get('/', see_all_users);
  *       500:
  *         description: Error al obtener el usuario
  */
-router.get('/:numeroIdentificacion', found_user);
+router.get('/:numeroIdentificacion', verifyToken, verifyRole(['asistente']), found_user);
 
 
 // 4. Ruta para editar un usuario por su numero de identificacion.
@@ -164,7 +165,7 @@ router.get('/:numeroIdentificacion', found_user);
  *       500:
  *         description: Error interno en el servidor
  */
-router.put('/:numeroIdentificacion', validatorHandler(updateUserSchema, "body"), update_user);
+router.put('/:numeroIdentificacion', verifyToken, verifyRole(['asistente']), validatorHandler(updateUserSchema, "body"), update_user);
 
 
 // 5. Ruta para eliminar un usuario por su numero de identificacion.
@@ -188,7 +189,7 @@ router.put('/:numeroIdentificacion', validatorHandler(updateUserSchema, "body"),
  *       500:
  *         description: Error interno en el servidor
  */
-router.delete('/:numeroIdentificacion',  delete_user);
+router.delete('/:numeroIdentificacion', verifyToken, verifyRole(['asistente']),  delete_user);
 
 
 export default router;
