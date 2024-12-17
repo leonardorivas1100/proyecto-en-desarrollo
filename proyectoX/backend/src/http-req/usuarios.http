@@ -1,34 +1,36 @@
 ### Crear un nuevo usuario.
 POST http://localhost:10000/api/usuarios
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsImVtYWlsIjoic2ViYXNAZ21haWwuY29tIiwibm9tYnJlcyI6IlNlYmFzIiwiYXBlbGxpZG9zIjoiQXJib2wiLCJyb2wiOiI2NzVkZDQxNTA5MWU0YzYyM2YyNWMwMTUiLCJpYXQiOjE3MzQ0NjkwODksImV4cCI6MTczNDUxMjI4OX0.O4iaiF6CG8WZVjwaXf04VivnJpbKKg5rUkXY0mqaBPo
 
 {
-  "numeroIdentificacion": "21784984651",
-  "nombres": "Alexander",
-  "apellidos": "Perdomo Parra",
-  "telefono": "5156151155361",
-  "email": "alex@gmail.com",
-  "password": "alexander123",
-  "nombre_rol": "cliente"
+  "numeroIdentificacion": "547878454651516651651",
+  "nombres": "Samuel Abraham",
+  "apellidos": "Rivas Villegas",
+  "telefono": "025166515169478489",
+  "email": "samuel@gmail.com",
+  "password": "samuel123",
+  "nombre_rol": "asistente"
 }
 ###
 
 ### Lista de usuarios individual y o grupalmente.
-GET http://localhost:10000/api/usuarios/
+GET http://localhost:10000/api/usuarios/547878454651516651651
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsImVtYWlsIjoic2ViYXNAZ21haWwuY29tIiwibm9tYnJlcyI6IlNlYmFzIiwiYXBlbGxpZG9zIjoiQXJib2wiLCJyb2wiOiI2NzVkZDQxNTA5MWU0YzYyM2YyNWMwMTUiLCJpYXQiOjE3MzQ0NjkwODksImV4cCI6MTczNDUxMjI4OX0.O4iaiF6CG8WZVjwaXf04VivnJpbKKg5rUkXY0mqaBPo
 ###
 
 ### Editar un usuario por su numero de identificacion.
-PUT http://localhost:10000/api/usuarios/123
+PUT http://localhost:10000/api/usuarios/101123232
 Content-Type: application/json
 
 {
-  "nuevoNumeroIdentificacion": "123",
-  "nombres": "Juan",
-  "apellidos": "Diaz",
-  "telefono": "3027887963",
-  "email": "juan@gmail.com",
-  "password": "juanpablo123456",
-  "nombre_rol": "administrador"
+  "nuevoNumeroIdentificacion": "101123232",
+  "nombres": "Sebas",
+  "apellidos": "Arbol",
+  "telefono": "32651548965651654",
+  "email": "sebas@gmail.com",
+  "password": "Sebas123456789",
+  "nombre_rol": "asistente"
 }
 ###
 
