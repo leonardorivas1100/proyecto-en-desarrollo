@@ -1,0 +1,505 @@
+Implementacion en seco del Json Web Tokken.
+ - Ya se sabe que el Jwt es un mecanismo de autenticacion, que permite a un usuario generar un token unico,
+ como una llave unica para identificarlo cuando inicie sesion. Este token incluye información encriptada 
+ (como el id del usuario) y puede ser usado por el frontend para:
+    - Identificar al usuario en futuras solicitudes.
+    - Proteger rutas privadas.
+    - Verificar que la sesión del usuario sigue activa.
+
+- Basicamente este mecanismo se usa para agregar seguridad al proyecto que estoy desarrollando. El token 
+contiene 3 partes; header, payload y signature, cada uno separado por puntos pero unidos.
+
+    #Codigo generalizado
+
+->    const token = jwt.sign({ id: user._id }, 'your_secret_key', { expiresIn: '1h' });
+        *Anotacion: Esta linea de codigo es la que en conclusion genera el token detras de toda la logica
+        osea es una linea de codigo importante.
+
+
+
+    - Explicacion:
+        ° jwt.sign(): Es una función del paquete jsonwebtoken que genera un token único.El token contiene
+         3 partes codificadas en base64:
+
+            Header: Información sobre el algoritmo de firma.
+            Payload: Datos que deseas incluir, como el id del usuario.
+            Signature: La parte encriptada que asegura la validez del token usando tu clave secreta.
+
+
+            Clave secreta: 'your_secret_key'
+            Es la "llave" que tu backend utiliza para firmar el token. Es muy importante mantenerla segura, 
+            ya que cualquiera que la tenga podría generar tokens válidos.
+
+
+            Configuración extra: { expiresIn: '1h' }
+            Define la duración del token. En este caso, el token expirará en 1 hora.
+
+
+    - Su respuesta osea lo que generara sera una cadena de texto como esta:
+        eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+        .eyJpZCI6IjY0N2Y5MmU1OGUxMjM0NTY3ODlhYmNkIiwiaWF0IjoxNjg3MTkwNTA3LCJleHAiOjE2ODcyMjY1MDd9
+        .3V7R_VYTRK5VkZwTnqcHp7JXGglz3vB2zMSL6UQpmKk
+
+        - Primera parte: Información del algoritmo (eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9).
+        - Segunda parte: Datos del usuario (eyJpZCI6IjY0N2...).
+        - Tercera parte: Firma encriptada para validar el token (3V7R_VYTRK...).
+
+
+
+
+
+
+
+Implementacion paso a paso.
+Para no perderse entre codigo guiarse por los numeros de
+esta linea:
+|
+|
+|
+|
+
+1. Primera parte de la implementacion:
+    - Para comenzar a implementar el token se debe dar por hecho lo entendido sobre 
+    el token, osea se necesita un modelo de usuario que tenga los campos que tenga debe
+    tener los campos, correo y contraseña, ya que sin estos campos no se podrá verficar 
+    el token.
+
+    - Antes de que empieces a implementar todo el token y toda esta vaina, primero:
+    genera la Api de un usuario, osea; aqui abajo estoy dejando un esquema si, entonces
+    para completar esta api de usuario falta el controlador de usuario, la ruta en el 
+    archivo de rutas, su llamado en el index y su request.http, o bueno la logica pues.
+
+    *Se necesita tener un usuario registrado en la base de datos ya que si no hay 
+    usuario resgitrado, no hay usuario para autenticar valga la redondancia, y por 
+    buena practica se hace el registro haciendo la api como lo hemos venido haciendo
+    todo el trimestre.. 
+
+    * instalar esta dependencia bcryptjs en el backend (npm install bcryptjs)
+
+
+                *Ejemplo de modelo de usuario:
+
+                import mongoose from 'mongoose';
+                import bcrypt from 'bcryptjs';
+
+                const usuarioSchema = new mongoose.Schema({
+
+                email: {                    Simpre debe haber un correo
+                    type: String,
+                    required: true,
+                    unique: true,  
+                },
+                
+                password: {                 Siempre debe haber una contrasña 
+                    type: String, 
+                    required: true 
+                },
+
+                nombres: { 
+                    type: String,
+                    required: true
+                },
+
+                apellidos: { 
+                    type: String,
+                    required: true 
+                },
+
+                telefono: {
+                    type: String,
+                    required: true,
+                    unique: true,  
+                }, { timestamps: true });
+
+                usuarioSchema.pre('save', async function (next) {
+                    if (this.isModified('password') || this.isNew) {
+                        this.password = await bcrypt.hash(this.password, 10); // Encriptamos la contraseña con un saltRounds de 10
+                    }
+                    next();
+                });
+
+                // Modelo de Usuario
+                const Usuario = mongoose.model('Usuario', usuarioSchema);
+
+                export default Usuario;
+
+
+    - Implementar en el modelo de usuario la logica para encriptar la contraseña.
+        .La logica implementada fue la siguiente:
+        -> 
+
+                import bcrypt from 'bcryptjs';  
+                // Middleware para encriptar la contraseña antes de guardarla
+                    usuarioSchema.pre('save', async function (next) {
+                        if (this.isModified('password') || this.isNew) {
+                            this.password = await bcrypt.hash(this.password, 10); // Encriptamos la contraseña con un saltRounds de 10
+                        }
+                        next();
+                    });
+
+
+
+2. Segunda parte de la implementacion:
+    - Instalar las dependecias necesarias para cargar las variables de 
+    entorno (dotenv) y la dependecia para generar los token (jsonwebtoken)
+
+    - Luego definir la variable de entorno en el archivo .env, que es 
+    asi: 
+            ->
+            JWT_SECRET=messigod    *Tu defines la contraseña que quieras aqui 
+
+
+
+3. Tercera parte de la implementacion:
+    - Cofigurar el dotenv en el index, osea:
+
+            import dotenv from 'dotenv';
+
+            dotenv.config();
+
+
+4. Cuarta parte de la implementacion:
+    - En la carpeta de controladores, crear el archivo de control de 
+    autenticacion (authController.js).
+
+    - Dentro de este archivo se debe definir las funciones que manejen
+    el inicio de sesion y la generacion de tokens, yo lo hice de esta manera: 
+
+                import jwt from 'jsonwebtoken';
+                import bcrypt from 'bcryptjs';
+                import Usuario from '../models/usuarios_model.js'; // Ajusta la ruta al modelo
+                import dotenv from 'dotenv';
+
+                // Configurar dotenv para leer variables de entorno
+                dotenv.config();
+
+                // Función para generar un token JWT
+                const generarToken = (usuario) => {
+                return jwt.sign(
+                    { 
+                    id: usuario._id, 
+                    email: usuario.email, 
+                    nombres: usuario.nombres, // Agrega nombres si está en tu modelo
+                    apellidos: usuario.apellidos, // Agrega apellidos si está en tu modelo
+                    roles: usuario.id_rol // Cambia esto si los roles están estructurados de otra forma
+                    },
+                    process.env.JWT_SECRET, // Clave secreta desde el archivo .env
+                    { expiresIn: '12h' } // Tiempo de expiración del token
+                );
+                };
+
+                // Controlador para manejar el inicio de sesión
+                const login = async (req, res) => {
+                const { email, password } = req.body; // Captura los datos enviados por el cliente
+
+                try {
+                    // Verificar si el usuario existe
+                    const usuario = await Usuario.findOne({ email });
+                    if (!usuario) {
+                    return res.status(404).json({ message: 'Usuario no encontrado' });
+                    }
+
+                    // Verificar si la contraseña es válida
+                    const esValida = await bcrypt.compare(password, usuario.password);
+                    if (!esValida) {
+                    return res.status(401).json({ message: 'Contraseña incorrecta' });
+                    }
+
+                    // Generar el token JWT
+                    const token = generarToken(usuario);
+
+                    // Enviar la respuesta con el token
+                    res.status(200).json({ 
+                    message: '¡Inicio de sesión exitoso!',
+                    Token_generado: token 
+                    });
+                } catch (error) {
+                    console.error('Error en el login:', error.message);
+                    res.status(500).json({ 
+                    message: 'Error interno del servidor', 
+                    error: error.message 
+                    });
+                }
+                };
+
+                export { login };
+
+
+
+5. Quinta parte de la implementacion
+    - Creamos el archvio de rutas llamado auth_routes.js. Alli definimos la ruta para el 
+    inicio de sesion y la generacion de tokens.
+    *Creo que no es necesario explicar esto..
+
+    - Luego hacemos el llamado en el servidor(index), de la ruta definida para el inicio de sesion
+    *Tampoco esto
+
+    - Por ultimo se hace el Request en un archivo .http, entonces al momento de hacer la Request
+    este se hara de forma que sea una solicitud (Post), colocando los campos exigidos que son
+    el correo y la contraseña asi:
+                ->
+
+                ### Probar inicio de sesión
+                POST http://localhost:10000/api/auth/login
+                Content-Type: application/json
+
+                {
+                    "email": "juan@gmail.com",
+                    "password": "juan123" 
+                    # Siempre escribir la contraseña no encriptada
+                }
+
+
+
+6. Sexta parte de la implementacion:
+    - Para poder probar la autenticacion se necesita tener un usuario creado, entonces en mi caso
+    tenia que tener un post para los usuarios que fuera a registrar y registrarlo desde mi 
+    controlador, ruta, servidor y request, pero por buena practica. Pero si no hay mucho tiempo
+    este usuario puede resgistrarse directamente de cualquier manera siempre y cuando cumpla
+    con el correo y la contraseña que se esta exigiendo en la autenticacion.
+
+    - Para este punto el token ya simplemente se genera, no hace ninguna funcion aun, pero 
+    debo decir que una vez entendido todo hasta aqui será un poco mas facil mirar como 
+    funciona y sinceramente creo que lo demás será un poco mas facil..
+
+    la respuesta del request deberia ser asi a este punto, si no es asi, o cambio algo o
+    esta algo mal:
+
+                HTTP/1.1 200 OK
+                X-Powered-By: Express
+                Access-Control-Allow-Origin: *
+                Content-Type: application/json; charset=utf-8
+                Content-Length: 381
+                ETag: W/"17d-q+n6LVE6GnuMdMC/UNQ4dNFHYkA"
+                Date: Tue, 10 Dec 2024 06:52:00 GMT
+                Connection: close
+
+                {
+                "message": "¡Inicio de sesión exitoso!",
+                "Token_generado": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+                .eyJpZCI6IjY3NTdkOWJlYTQ3YWFhOTkwYzI1OTJkNCIsImVtYWlsIjoianVhbkBnbWFpbC5jb20iLCJub21icmVzIjoiSnVhbiBQYWJsbyIsImFwZWxsaWRvcyI6IkRpYXogQmFsY2F6YXIiLCJyb2xlcyI6IjY3NTNkZTFhYjJiNjgzNmVlNDE4OTJiMyIsImlhdCI6MTczMzgxMzUyMCwiZXhwIjoxNzMzODU2NzIwfQ
+                .rz1zBCEOJnemJ2IRM67O9VbM_QHgJV_taTbuhoR8yeQ"
+                }
+
+
+
+7. Septima parte de implementacion:
+    - Una vez generado el token se habrá hecho la autenticacion correctamente, se verifico que eres el usuario que dices ser ingresando correo y contraseña.
+
+    - Entonces crea una carpeta llamada middlewares y dentro de esta carpeta vas a crear el middleware para verificar que el token esta presente en la
+    solicitud y verificar que el token proporcionado es el correcto.
+        ° Para eso haces lo siguiente:
+
+        detro de la carpeta middleware creas el archivo (auth.js), dentro de este archivo crearas la logica de verificacion del token implementado.
+        Entonces dentro de este archivo debe haber lo siguiente:
+
+                import jwt from 'jsonwebtoken';
+                import Role from '../models/rol_model.js'
+
+                // Middleware para verificar el token de autenticación
+                const verifyToken = (req, res, next) => {
+                    const token = req.header('Authorization');
+
+                    if (!token) {
+                        return res.status(401).json({ 
+                            Autenticacion_failed: 'Token de autenticación no proporcionado' });
+                    }
+
+                    try {
+                        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+                        req.user = decoded; // Decodificamos el token y lo adjuntamos a la solicitud
+                        console.log('Token decodificado:', decoded); // Verifica el contenido
+                        next();
+                    } catch (error) {
+                        return res.status(401).json({ 
+                            Autenticacion_failed: 'Token de autenticación inválido' });
+                    }
+                };
+
+
+                // Middleware para verificar el rol del usuario
+                const verifyRole = (rolesPermitidos) => async (req, res, next) => {
+                    try {
+
+                    const userRoleId = req.user.rol;  
+
+                    // Consulta el nombre del rol desde la base de datos
+                    const role = await Role.findById(userRoleId);
+                    if (!role) {
+                        return res.status(403).json({ 
+                            Access_failed: 'Rol no encontrado, acceso denegado' });
+                    }
+
+                    // Verifica si el nombre del rol está en los roles permitidos
+                    if (rolesPermitidos.includes(role.nombre)) {
+                        return next();
+                    }
+
+                    return res.status(403).json({ 
+                        Autenticacion_failed: 'Acceso denegado' });
+                    } catch (error) {
+                        console.error('Error en verifyRole:', error.message);
+                        return res.status(500).json({ 
+                            Request_failed: 'Error interno del servidor' });
+                    }
+                };
+
+
+                // Exportando las funciones
+                export { verifyToken, verifyRole };
+
+
+        ° SIEMPRE hay que tener en cuenta nuestros archivos, como los tenemos nombrados, si se llaman rolModel, o rol_models, o si en los usuarios
+        el nombre no sea nombre_rol, si no rol, o name_rol, de todo eso dependerá este archivo, ya que si se escribe un campo incorrectamente el token
+        no se verificará y no se podrá acceder a las rutas que vamos a autenticar.
+
+
+8. Octava parte de implementacion.
+    - Entonces, luego de crear las funciones que van a generar el token, vamos a implementar estas constantes en nuestras rutas para que al momento de 
+    realizarlas sea necesario autenticar primero el usuario y verificar si ese usuario tiene acceso a esas rutas considerando su rol.
+        ° Entonces haremos lo siguiente:
+
+        A. Abrimos el archivo de rutas al cual queremos agregar autenticacion en mi caso voy a colocarle autenticacion a las rutas de usuario.
+            Asi se ve una sola ruta para crear un usuario:
+
+                import express from 'express';
+                import { validatorHandler } from '../middleware/validator.handler.js';
+                import { createUserSchema, updateUserSchema } from '../validators/usuario_validator.js';
+                import { create_user, see_all_users, update_user, found_user, delete_user } from '../controllers/usuarios_controller.js';
+
+                const router = express.Router();
+
+                /**
+                * @swagger
+                * tags:
+                *   name: Usuario
+                *   description: Operaciones relacionadas con usuarios.
+                */
+                /**
+                * @swagger
+                * components:
+                *   schemas:
+                *     Usuario:
+                *       type: object
+                *       properties:
+                *         numeroIdentificacion:
+                *           type: string
+                *           description: Numero de identificacion del usuario.
+                *         nombres: 
+                *           type: string
+                *           descripcion: Nombres del usuario.
+                *         apellidos:
+                *           type: string
+                *           descripcion: Apellidos del usuario.         
+                *         telefono:
+                *           type: string
+                *           descripcion: Numero telefonico del usuario.  
+                *         email:
+                *           type: string
+                *           descripcion: Correo electrónico del usuario.  
+                *         password:
+                *           type: string
+                *           descripcion: Contraseña del usuario.  
+                *         nombre_rol:
+                *           type: string
+                *           descripcion: Nombre del rol que pertenece al usuario  
+                *       required:
+                *         - numeroIdentificacion
+                *         - nombres
+                *         - apellidos
+                *         - telefono
+                *         - email     
+                *         - password 
+                *         - nombre_rol 
+                */
+
+
+                // 1. Ruta para crear un nuevo usuario.
+                /**
+                * @swagger
+                * /api/usuarios:
+                *   post:
+                *     summary: Crear un nuevo usuario
+                *     tags: [Usuario]
+                *     requestBody:
+                *       required: true
+                *       content:
+                *         application/json:
+                *           schema:
+                *             $ref: '#/components/schemas/Usuario'
+                *     responses:
+                *       201:
+                *         description: User created successfully
+                *       400:
+                *         description: El usuario ya existe
+                *       500:
+                *         description: Error al crear el usuario
+                */
+                router.post('/', validatorHandler(createUserSchema, "body"), create_user);
+
+
+        B. Luego de abrirla vamos a importar las funciones que acabamos de crear para la autenticacion de usuarios.
+            ° Asi:
+
+                import {  verifyToken, verifyRole } from '../middleware/auth.js';
+
+
+        C. Entonces, depues de importarla vamos a colocarla dentro de la ruta:
+            ° Asi:
+
+                router.post('/', verifyToken, verifyRole(['asistente']), validatorHandler(createUserSchema, "body"), create_user);
+
+                verifyToken: Es el middleware que creamos en el archivo auth.js para verificar nada mas que hay un token presente.
+                verifyRole: Es el middleware que creamos *****, para verificar que le token que implementamos es el token generado por un usuario 
+                con un role especifico en este caso: "asistente".
+                - Debido a queda cada usuario esta identificado con un rol, cada usuario tendra opciones y necesidades distintas entonces valga la 
+                redondancia tendrá roles distintos. 
+                - Si un usuario con un rol 'administrador' en tu proyecto debe crear usuarios entonces la ruta se escribe asi: verifyRole(['administrador']),
+                y entonces los usuarios con el rol de administrador podrán crear un usuario porque estan autenticados para ello.
+
+
+
+9. Novena parte de la implementacion.
+    - Una vez hecha la octava parte de la implementacion a las rutas que apicamos la autenticacion ya no se podrá acceder a ellas sin su respectiva 
+    autenticacion pues.
+
+    ° Entonces en nuestro archvio de solicitudes osea (usuarios.http), tenemos que hacer una modificacion para poder hacer la solicitud.
+
+    - Entonces vamos a editar nuestro archivo request asi:
+
+                ### Crear un nuevo usuario.
+                POST http://localhost:10000/api/usuarios
+                Content-Type: application/json
+                Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsImVtYWlsIjoic2ViYXNAZ21haWwuY29tIiwibm9tYnJlcyI6IlNlYmFzIiwiYXBlbGxpZG9zIjoiQXJib2wiLCJyb2wiOiI2NzVkZDQxNTA5MWU0YzYyM2YyNWMwMTUiLCJpYXQiOjE3MzQ0NjkwODksImV4cCI6MTczNDUxMjI4OX0.O4iaiF6CG8WZVjwaXf04VivnJpbKKg5rUkXY0mqaBPo
+
+                {
+                "numeroIdentificacion": "547878454651516651651",
+                "nombres": "Samuel Abraham",
+                "apellidos": "Rivas Villegas",
+                "telefono": "025166515169478489",
+                "email": "samuel@gmail.com",
+                "password": "samuel123",
+                "nombre_rol": "asistente"
+                }
+                ###
+    
+
+        ° Abajo de Content-Type, vamos a escribir (Authorization), esto es lo que verificará de alguna manera el token que vamos a implementar.
+        - Entonces vamos a generar el token del usuario con el rol que tiene el acceso a la ruta ( Lo que explique a lo ultimo de la octava parte), entonces
+        despues de generar el token, lo pegas en esa parte como se ve en el codigo.
+
+        - Si el usuario no tiene acceso a la ruta es porque es un token con un rol sin autorizacion para realizar esas solicitudes, entonces habrás generado 
+        un token de un usuario con un rol incorrecto .
+        - Si los unicos que pueden crear un usuario son los administradores, y generas un token de un usuario que es "asistente", la respuesta sera algo como 
+        "Acceso denegado". Pero si generas el token de un administrador tendrás acceso a la ruta y por ende podrás hacer la solicitud.
+
+        - Una vez hecho este punto entenderas como funciona la implementacion de un token de seguridad en tu proyecto,
+
+        ----- ánimo no es complicado:) 
+
+
+
+
+
+
+            
