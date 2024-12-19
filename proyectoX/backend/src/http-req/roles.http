@@ -1,7 +1,7 @@
 ### Crear un nuevo Rol
 POST http://localhost:10000/api/roles
 Content-Type: application/json
-Authorization: 
+Authorization: Bearer
 
 {
   "nombre": ""
@@ -10,7 +10,7 @@ Authorization:
 
 ### Obtener todos los roles individual o grupalmente.
 GET http://localhost:10000/api/roles/
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTdkOWJlYTQ3YWFhOTkwYzI1OTJkNCIsImVtYWlsIjoianVhbkBnbWFpbC5jb20iLCJub21icmVzIjoiSnVhbiIsImFwZWxsaWRvcyI6IkRpYXoiLCJyb2wiOiI2NzVkZDU4Y2E0YzdjZTQ1MzAyZWE3YmQiLCJpYXQiOjE3MzQ0NjQ2MjYsImV4cCI6MTczNDUwNzgyNn0.78feoStAs1I8e7N3UK7kGMGrecGUXSX7YubG8dSlZyI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsImVtYWlsIjoic2ViYXNAZ21haWwuY29tIiwibm9tYnJlcyI6IlNlYmFzIiwiYXBlbGxpZG9zIjoiQXJib2wiLCJyb2wiOiI2NzVkZDQxNTA5MWU0YzYyM2YyNWMwMTUiLCJpYXQiOjE3MzQ1NTY2NDUsImV4cCI6MTczNDU5OTg0NX0.AhKfSd_HA0d8od11HaRlnNXvL3VhuJ8fd5g2poJeSTU
 ###
 
 ### Actualizar un rol por su nombre

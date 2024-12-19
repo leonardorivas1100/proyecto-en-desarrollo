@@ -1,36 +1,38 @@
 ### Crear un nuevo usuario.
 POST http://localhost:10000/api/usuarios
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsImVtYWlsIjoic2ViYXNAZ21haWwuY29tIiwibm9tYnJlcyI6IlNlYmFzIiwiYXBlbGxpZG9zIjoiQXJib2wiLCJyb2wiOiI2NzVkZDQxNTA5MWU0YzYyM2YyNWMwMTUiLCJpYXQiOjE3MzQ0NjkwODksImV4cCI6MTczNDUxMjI4OX0.O4iaiF6CG8WZVjwaXf04VivnJpbKKg5rUkXY0mqaBPo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsImVtYWlsIjoic2ViYXNAZ21haWwuY29tIiwibm9tYnJlcyI6IlNlYmFzIiwiYXBlbGxpZG9zIjoiQXJib2wiLCJyb2wiOiI2NzVkZDQxNTA5MWU0YzYyM2YyNWMwMTUiLCJpYXQiOjE3MzQ1ODU3OTIsImV4cCI6MTczNDYyODk5Mn0.L_Nljpl9pTCNoCvVsBqU2MQWUUqcifDzLYR5oFOiGeo 
 
 {
-  "numeroIdentificacion": "547878454651516651651",
-  "nombres": "Samuel Abraham",
-  "apellidos": "Rivas Villegas",
-  "telefono": "025166515169478489",
-  "email": "samuel@gmail.com",
-  "password": "samuel123",
+  "numeroIdentificacion": "5665448979651651",
+  "nombres": "Diego Alejandro",
+  "apellidos": "Farias Villegas",
+  "telefono": "651564510",
+  "email": "diego@gmail.com",
+  "password": "diego123456789",
   "nombre_rol": "asistente"
 }
 ###
 
 ### Lista de usuarios individual y o grupalmente.
-GET http://localhost:10000/api/usuarios/547878454651516651651
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsImVtYWlsIjoic2ViYXNAZ21haWwuY29tIiwibm9tYnJlcyI6IlNlYmFzIiwiYXBlbGxpZG9zIjoiQXJib2wiLCJyb2wiOiI2NzVkZDQxNTA5MWU0YzYyM2YyNWMwMTUiLCJpYXQiOjE3MzQ0NjkwODksImV4cCI6MTczNDUxMjI4OX0.O4iaiF6CG8WZVjwaXf04VivnJpbKKg5rUkXY0mqaBPo
+GET http://localhost:10000/api/usuarios/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsImVtYWlsIjoic2ViYXNAZ21haWwuY29tIiwibm9tYnJlcyI6IlNlYmFzIiwiYXBlbGxpZG9zIjoiQXJib2wiLCJyb2wiOiI2NzVkZDQxNTA5MWU0YzYyM2YyNWMwMTUiLCJpYXQiOjE3MzQ1ODU3OTIsImV4cCI6MTczNDYyODk5Mn0.L_Nljpl9pTCNoCvVsBqU2MQWUUqcifDzLYR5oFOiGeo
 ###
 
 ### Editar un usuario por su numero de identificacion.
-PUT http://localhost:10000/api/usuarios/101123232
+PUT http://localhost:10000/api/usuarios/547878454651516651651
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsImVtYWlsIjoic2ViYXNAZ21haWwuY29tIiwibm9tYnJlcyI6IlNlYmFzIiwiYXBlbGxpZG9zIjoiQXJib2wiLCJyb2wiOiI2NzVkZDQxNTA5MWU0YzYyM2YyNWMwMTUiLCJpYXQiOjE3MzQ1ODU3OTIsImV4cCI6MTczNDYyODk5Mn0.L_Nljpl9pTCNoCvVsBqU2MQWUUqcifDzLYR5oFOiGeo
+
 
 {
-  "nuevoNumeroIdentificacion": "101123232",
-  "nombres": "Sebas",
-  "apellidos": "Arbol",
-  "telefono": "32651548965651654",
-  "email": "sebas@gmail.com",
-  "password": "Sebas123456789",
-  "nombre_rol": "asistente"
+  "nuevoNumeroIdentificacion": "547878454651516651651",
+  "nombres": "Samuel Abraham",
+  "apellidos": "Rivas Villegas",
+  "telefono": "025166515169478489",
+  "email": "samuel@gmail.com",
+  "password": "samuelrivas123456789",
+  "nombre_rol": "administrador"
 }
 ###
 
