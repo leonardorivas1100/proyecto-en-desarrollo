@@ -1,0 +1,91 @@
+/* Importa la fuente de Google Fonts */
+body {
+  font-family: 'Roboto', sans-serif; /* Cambia a la fuente que prefieras */
+  background-color: #121212; /* Fondo oscuro */
+  color: #eaeaea; /* Texto en gris claro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* Estilos para el contenedor principal */
+.login-container {
+  background-color: #1e1e2f; 
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Títulos */
+h2 {
+  color: #66bbff; 
+  margin-bottom: 20px;
+  font-size: 2.5rem; /* Tamaño de fuente más grande */
+  font-weight: 500; /* Peso medio para el título */
+  letter-spacing: 1px; /* Espaciado entre letras para darle un toque elegante */
+}
+
+/* Campos de entrada */
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  background-color: #2a2a3e;
+  color: #eaeaea;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 400; /* Peso normal */
+  transition: background-color 0.3s ease;
+}
+
+input:focus {
+  background-color: #3c3c56;
+  outline: none;
+}
+
+/* Botón */
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #2196f3;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #1976d2;
+}
+
+/* Enlace de texto */
+a {
+  color: #66bbff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 400; /* Peso normal */
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Mensaje de error o éxito */
+.message {
+  color: #ff5252;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.message.success {
+  color: #4caf50;
+}
