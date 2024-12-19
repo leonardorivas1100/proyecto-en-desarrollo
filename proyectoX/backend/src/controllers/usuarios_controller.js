@@ -162,12 +162,12 @@ export const update_user = async (req, res) => {
             }
 
             // Verificar si el rol ya está en uso por otro usuario
-            const rol_user_now = await Usuario.findOne({ nombre_rol: rol._id });
-            if (rol_user_now && rol_user_now._id.toString() !== user._id.toString()) {
-                return res.status(400).json({
-                    Request_failed: `Ya existe un usuario con el rol: ${nombre_rol}`,
-                });
-            }
+            // const rol_user_now = await Usuario.findOne({ nombre_rol: rol._id });
+            // if (rol_user_now && rol_user_now._id.toString() !== user._id.toString()) {
+            //     return res.status(400).json({
+            //         Request_failed: `Ya existe un usuario con el rol: ${nombre_rol}`,
+            //     });
+            // }
 
         user.nombres = nombres;
         user.apellidos = apellidos;

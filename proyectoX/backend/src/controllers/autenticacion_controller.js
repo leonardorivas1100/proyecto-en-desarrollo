@@ -12,12 +12,12 @@ const generarToken = (usuario) => {
     { 
       id: usuario._id, 
       email: usuario.email, 
-      nombres: usuario.nombres, // Agrega nombres si está en tu modelo
-      apellidos: usuario.apellidos, // Agrega apellidos si está en tu modelo
-      rol: usuario.nombre_rol// Cambia esto si los roles están estructurados de otra forma
+      nombres: usuario.nombres, 
+      apellidos: usuario.apellidos, 
+      rol: usuario.nombre_rol.nombre, 
     },
     process.env.JWT_SECRET, // Clave secreta desde el archivo .env
-    { expiresIn: '12h' } // Tiempo de expiración del token
+    { expiresIn: '1h' } // Tiempo de expiración del token
   );
 };
 
@@ -27,7 +27,10 @@ const login = async (req, res) => {
 
   try {
     // Verificar si el usuario existe
-    const usuario = await Usuario.findOne({ email });
+    const usuario = await Usuario
+    .findOne({ email })
+    .populate('nombre_rol');
+
     if (!usuario) {
       return res.status(404).json({ 
         Request_failed: 'No se encontro ningún usuario con el correo ingresado.' });
@@ -42,13 +45,18 @@ const login = async (req, res) => {
 
     // Generar el token JWT
     const token = generarToken(usuario);
-    console.log(` Token generado exitosamente!: ${token}`)
+    console.log(
+      `- Token generado exitosamente!: ${token}.
+       - El usuario autenticado es un ${usuario.nombre_rol.nombre}`)
 
     // Enviar la respuesta con el token
     res.status(200).json({ 
       Request_success: 'Token generado exitosamente!',
-      Token_generated: token 
+      Token_generated: token,
+      User_rol: usuario.nombre_rol.nombre, // Enviamos el rol en la respuesta
     });
+
+
   } catch (error) {
     console.error('Error en el login:', error.message);
     res.status(500).json({ 
