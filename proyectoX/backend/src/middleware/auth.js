@@ -3,11 +3,21 @@ import Role from '../models/rol_model.js'
 
 // Middleware para verificar el token de autenticación
 const verifyToken = (req, res, next) => {
-    const token = req.header('Authorization');
+    const authHeader = req.header('Authorization');
+
+    if (!authHeader) {
+        return res.status(401).json({ 
+            Autenticacion_failed: 'Token de autenticación no proporcionado' 
+        });
+    }
+
+    // Extraer el token del encabezado con formato 'Bearer <token>'
+    const token = authHeader.split(' ')[1];
 
     if (!token) {
         return res.status(401).json({ 
-            Autenticacion_failed: 'Token de autenticación no proporcionado' });
+            Autenticacion_failed: 'Formato del token no válido' 
+        });
     }
 
     try {

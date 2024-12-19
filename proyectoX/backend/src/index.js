@@ -6,7 +6,6 @@ import {port} from './config/connect.js'; // Puerto de donde corre el servidor
 import "./config/connect.js" // Conexion con las base
 import { swaggerJSDocs } from './swagger.js'; // Documentación Swagger
 import dotenv from 'dotenv';
-
 import authRoutes from './routes/auth_routes.js'
 import rolRoutes from './routes/rol_routes.js';
 import userRoutes from './routes/usuarios_routes.js';
@@ -14,7 +13,7 @@ import userRoutes from './routes/usuarios_routes.js';
 // Configuración de las variables de entorno
 dotenv.config();
 
-// Se crea la instancia que manejará los aspectos del servidor
+// Se crea la instancia que manejará los aspectos del servidor 
 const app = express();
 
 
