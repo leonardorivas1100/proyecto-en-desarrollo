@@ -6,10 +6,11 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const URL = 'http://localhost:10000/api/auth/login'
+  const URL = 'http://localhost:10000/api/auth/login';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(''); // Resetea el error antes de intentar iniciar sesión
 
     try {
       const response = await fetch(URL, {
@@ -23,16 +24,36 @@ const LoginForm = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // Si el login es exitoso, guarda el token en el localStorage o en el estado global
-        localStorage.setItem('token', data.Token_generated);
-        // Redirige a otra página
-        navigate('/dashboard');
+        const { Token_generated, User_rol } = data;
+
+        if (!Token_generated || !User_rol) {
+          setError('Respuesta inesperada del servidor.');
+          return;
+        }
+
+        // Guarda el token y el rol en localStorage
+        localStorage.setItem('token', Token_generated);
+        localStorage.setItem('userRole', User_rol);
+
+        // Redirige al dashboard según el rol
+        switch (User_rol) {
+          case 'administrador':
+            navigate('/dashboard/admin');
+            break;
+          case 'asistente':
+            navigate('/dashboard/asistente');
+            break;
+          case 'cliente':
+            navigate('/dashboard/cliente');
+            break;
+          default:
+            setError('Rol de usuario no reconocido.');
+        }
       } else {
-        // Si hay un error, muestra el mensaje
         setError(data.Request_failed || 'Error desconocido');
       }
     } catch (err) {
-      setError('Error de conexión');
+      setError('Error de conexión. Por favor, inténtalo más tarde.');
     }
   };
 
@@ -46,6 +67,7 @@ const LoginForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          aria-label="Correo electrónico"
         />
         <input
           type="password"
@@ -53,6 +75,7 @@ const LoginForm = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          aria-label="Contraseña"
         />
         {error && <p className="error-message">{error}</p>}
         <button type="submit">Iniciar sesión</button>
@@ -62,3 +85,4 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+  
