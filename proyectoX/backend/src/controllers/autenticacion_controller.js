@@ -11,13 +11,10 @@ const generarToken = (usuario) => {
   return jwt.sign(
     { 
       id: usuario._id, 
-      email: usuario.email, 
-      nombres: usuario.nombres, 
-      apellidos: usuario.apellidos, 
       rol: usuario.nombre_rol.nombre, 
     },
     process.env.JWT_SECRET, // Clave secreta desde el archivo .env
-    { expiresIn: '1h' } // Tiempo de expiración del token
+    { expiresIn: '12h' } // Tiempo de expiración del token
   );
 };
 
