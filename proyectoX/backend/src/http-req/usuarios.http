@@ -1,38 +1,38 @@
 ### Crear un nuevo usuario.
 POST http://localhost:10000/api/usuarios
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsImVtYWlsIjoic2ViYXNAZ21haWwuY29tIiwibm9tYnJlcyI6IlNlYmFzIiwiYXBlbGxpZG9zIjoiQXJib2wiLCJyb2wiOiI2NzVkZDQxNTA5MWU0YzYyM2YyNWMwMTUiLCJpYXQiOjE3MzQ1ODU3OTIsImV4cCI6MTczNDYyODk5Mn0.L_Nljpl9pTCNoCvVsBqU2MQWUUqcifDzLYR5oFOiGeo 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NjNhZTI3NTczOTVjOTllNTYxMTJhYSIsInJvbCI6ImFzaXN0ZW50ZSIsImlhdCI6MTczNDY3MTU2MCwiZXhwIjoxNzM0NzE0NzYwfQ.4MB0itc7xBJWraeAeKy2K9QXqqtbRlNN6uig7HV-F90
 
 {
-  "numeroIdentificacion": "5665448979651651",
-  "nombres": "Diego Alejandro",
-  "apellidos": "Farias Villegas",
-  "telefono": "651564510",
-  "email": "diego@gmail.com",
-  "password": "diego123456789",
-  "nombre_rol": "asistente"
+  "numeroIdentificacion": "148368796516549",
+  "nombres": "Luz",
+  "apellidos": "Villegas",
+  "telefono": "6589789223321132",
+  "email": "luz@gmail.com",
+  "password": "luzbel123456",
+  "nombre_rol": "administrador"
 }
 ###
 
 ### Lista de usuarios individual y o grupalmente.
 GET http://localhost:10000/api/usuarios/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsImVtYWlsIjoic2ViYXNAZ21haWwuY29tIiwibm9tYnJlcyI6IlNlYmFzIiwiYXBlbGxpZG9zIjoiQXJib2wiLCJyb2wiOiI2NzVkZDQxNTA5MWU0YzYyM2YyNWMwMTUiLCJpYXQiOjE3MzQ1ODU3OTIsImV4cCI6MTczNDYyODk5Mn0.L_Nljpl9pTCNoCvVsBqU2MQWUUqcifDzLYR5oFOiGeo
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsInJvbCI6ImFzaXN0ZW50ZSIsImlhdCI6MTczNDY3MTQ4OCwiZXhwIjoxNzM0NzE0Njg4fQ.Hx2B3l67b3ziJA129Xs7T5U0v4BaaWXqj_IUygMAgMs
 ###
 
 ### Editar un usuario por su numero de identificacion.
-PUT http://localhost:10000/api/usuarios/547878454651516651651
+PUT http://localhost:10000/api/usuarios/5985165651561651
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsImVtYWlsIjoic2ViYXNAZ21haWwuY29tIiwibm9tYnJlcyI6IlNlYmFzIiwiYXBlbGxpZG9zIjoiQXJib2wiLCJyb2wiOiI2NzVkZDQxNTA5MWU0YzYyM2YyNWMwMTUiLCJpYXQiOjE3MzQ1ODU3OTIsImV4cCI6MTczNDYyODk5Mn0.L_Nljpl9pTCNoCvVsBqU2MQWUUqcifDzLYR5oFOiGeo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NjNhZTI3NTczOTVjOTllNTYxMTJhYSIsInJvbCI6ImFzaXN0ZW50ZSIsImlhdCI6MTczNDY3MTU2MCwiZXhwIjoxNzM0NzE0NzYwfQ.4MB0itc7xBJWraeAeKy2K9QXqqtbRlNN6uig7HV-F90
 
 
 {
-  "nuevoNumeroIdentificacion": "547878454651516651651",
-  "nombres": "Samuel Abraham",
-  "apellidos": "Rivas Villegas",
-  "telefono": "025166515169478489",
-  "email": "samuel@gmail.com",
-  "password": "samuelrivas123456789",
-  "nombre_rol": "administrador"
+  "nuevoNumeroIdentificacion": "5985165651561651",
+  "nombres": "Leonardo",
+  "apellidos": "Rivas",
+  "telefono": "65116565154121",
+  "email": "leo@gmail.com",
+  "password": "leito123456",
+  "nombre_rol": "cliente"
 }
 ###
 

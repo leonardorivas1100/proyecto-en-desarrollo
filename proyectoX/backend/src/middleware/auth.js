@@ -35,28 +35,23 @@ const verifyToken = (req, res, next) => {
 // Middleware para verificar el rol del usuario
 const verifyRole = (rolesPermitidos) => async (req, res, next) => {
     try {
-
-    const userRoleId = req.user.rol;  
-
-    // Consulta el nombre del rol desde la base de datos
-    const role = await Role.findById(userRoleId);
-    if (!role) {
-        return res.status(403).json({ 
-            Access_failed: 'Rol no encontrado, acceso denegado' });
-    }
+    const userRoleId = req.user.rol;
 
     // Verifica si el nombre del rol está en los roles permitidos
-    if (rolesPermitidos.includes(role.nombre)) {
+    if (rolesPermitidos.includes(userRoleId)) {
         return next();
     }
 
     return res.status(403).json({ 
-        Autenticacion_failed: 'Acceso denegado' });
-    } catch (error) {
-        console.error('Error en verifyRole:', error.message);
-        return res.status(500).json({ 
-            Request_failed: 'Error interno del servidor' });
-    }
+        Autenticacion_failed: 'Acceso denegado' 
+    });
+
+} catch (error) {
+    console.error('Error en verifyRole:', error.message);
+    return res.status(500).json({ 
+        Request_failed: 'Error interno del servidor' 
+    });
+}
 };
 
 
