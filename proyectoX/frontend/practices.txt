@@ -1,0 +1,12 @@
+- Buenas practicas.
+
+    - Convención de nombres:
+    
+        ° Archivos y carpetas: Usa minúsculas y kebab-case (guiones en lugar de espacios o mayúsculas) para los nombres. 
+        Ejemplo: login-form.jsx, dashboard-admin.jsx.
+
+        ° Clases y componentes: Usa PascalCase (primera letra de cada palabra en mayúscula). Ejemplo: LoginForm.jsx, DashboardAdmin.jsx.
+
+        ° Estilos y otros recursos: Usa kebab-case. Ejemplo: styles.css, app.css.
+
+    -    

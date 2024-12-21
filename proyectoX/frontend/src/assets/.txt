@@ -1,0 +1,13 @@
+Esta carpeta es usada exclusivamente para recursos estaticos como imagenes y fuentes.  
+La carpeta assets generalmente se usa para:
+    Imágenes, íconos y recursos multimedia (como SVG, PNG, MP4, etc.).
+    Fuentes personalizadas si no están cargadas desde un servicio externo.
+    Archivos de estilo global en algunos casos.
+
+      /assets
+        /images
+          react.svg
+        /fonts
+          scar-font.woff2
+
+    Incluyendo la carpeta de estilos es un archivo de estilos global ya que se esta aplicando a toda la plataforma.      
