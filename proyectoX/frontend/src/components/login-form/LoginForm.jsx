@@ -1,7 +1,7 @@
 // components/login-form/LoginForm.jsx
 import React from 'react';
 import useLoginForm from './useLoginForm';
-import FormInput from './FormInput';
+import FormInput from './FormImput';
 import ErrorMessage from './ErrorMessage';
 
 const LoginForm = () => {

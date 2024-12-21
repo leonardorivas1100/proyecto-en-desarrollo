@@ -1,10 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import DashboardAdmin from './pages//Dashboards/DashboardAdmin';
-import DashboardAsistente from './pages//Dashboards/DashboardAsistente';
-import DashboardCliente from './pages/Dashboards/DashboardCliente';
-import PrivateRoute from './components/PrivateRoute'; // Importa el componente
+import LoginPage from './pages/login-page';
+import DashboardAdmin from './pages/dashboards/dashboard-administrador';
+import DashboardAsistente from './pages/dashboards/dashboard-asistente';
+import DashboardCliente from './pages/dashboards/dashboard-cliente';
+import DashboardNo from './pages/dashboards/dashboard-denied-access'; // Ruta correcta del archivo
+import PrivateRoute from './components/protect-route/ProtectRoute'; // Importa el componente
+
 
 function App() {
   return (
@@ -15,7 +17,7 @@ function App() {
 
         {/* Rutas protegidas por rol */}
         <Route 
-          path="/dashboard/admin" 
+          path="/dashboard/administrador" 
           element={
             <PrivateRoute requiredRole="administrador">
               <DashboardAdmin />
@@ -38,6 +40,9 @@ function App() {
             </PrivateRoute>
           } 
         />
+        
+        <Route path="/dashboard/no-permiso" element={<DashboardNo />} />
+
       </Routes>
     </Router>
   );

@@ -1,6 +1,6 @@
 // DashboardAdmin.jsx
 import React from 'react';
-import Navbar from '../..components/navbar/Navbar';
+import Navbar from "../../components/navbar/Navbar"
 
 const DashboardAsistente = () => {
   return (
