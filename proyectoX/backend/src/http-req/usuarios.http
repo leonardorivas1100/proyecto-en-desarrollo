@@ -16,23 +16,23 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NjNhZTI3N
 
 ### Lista de usuarios individual y o grupalmente.
 GET http://localhost:10000/api/usuarios/
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsInJvbCI6ImFzaXN0ZW50ZSIsImlhdCI6MTczNDY3MTQ4OCwiZXhwIjoxNzM0NzE0Njg4fQ.Hx2B3l67b3ziJA129Xs7T5U0v4BaaWXqj_IUygMAgMs
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsInJvbCI6ImFzaXN0ZW50ZSIsImlhdCI6MTczNDc1NjE1MSwiZXhwIjoxNzM0NzU5NzUxfQ.MaElcyYbhVd3hfJQpGgYv8kioThQW0C0OyvByuhsyEw
 ###
 
 ### Editar un usuario por su numero de identificacion.
-PUT http://localhost:10000/api/usuarios/5985165651561651
+PUT http://localhost:10000/api/usuarios/5665448979651651
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NjNhZTI3NTczOTVjOTllNTYxMTJhYSIsInJvbCI6ImFzaXN0ZW50ZSIsImlhdCI6MTczNDY3MTU2MCwiZXhwIjoxNzM0NzE0NzYwfQ.4MB0itc7xBJWraeAeKy2K9QXqqtbRlNN6uig7HV-F90
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsInJvbCI6ImFzaXN0ZW50ZSIsImlhdCI6MTczNDc1NjE1MSwiZXhwIjoxNzM0NzU5NzUxfQ.MaElcyYbhVd3hfJQpGgYv8kioThQW0C0OyvByuhsyEw
 
 
 {
-  "nuevoNumeroIdentificacion": "5985165651561651",
-  "nombres": "Leonardo",
-  "apellidos": "Rivas",
-  "telefono": "65116565154121",
-  "email": "leo@gmail.com",
-  "password": "leito123456",
-  "nombre_rol": "cliente"
+  "nuevoNumeroIdentificacion": "5665448979651651",
+  "nombres": "Diego",
+  "apellidos": "Farias",
+  "telefono": "651564510",
+  "email": "diego_alejandro@gmail.com",
+  "password": "diegoalejandro1208",
+  "nombre_rol": "asistente"
 }
 ###
 

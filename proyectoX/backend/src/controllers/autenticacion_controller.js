@@ -14,7 +14,7 @@ const generarToken = (usuario) => {
       rol: usuario.nombre_rol.nombre, 
     },
     process.env.JWT_SECRET, // Clave secreta desde el archivo .env
-    { expiresIn: '12h' } // Tiempo de expiración del token
+    { expiresIn: '2h' } // Tiempo de expiración del token
   );
 };
 
