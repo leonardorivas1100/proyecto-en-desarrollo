@@ -8,7 +8,6 @@ const DashboardAdmin = () => {
       <Navbar />
       <div style={styles.content}>
         <h1>Bienvenido al Dashboard del Administrador</h1>
-        {/* Contenido específico del Dashboard */}
       </div>
     </div>
   );
