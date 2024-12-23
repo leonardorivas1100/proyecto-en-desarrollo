@@ -8,6 +8,11 @@ const DashboardAdmin = () => {
       <Navbar />
       <div style={styles.content}>
         <h1>Bienvenido al Dashboard del Administrador</h1>
+
+        <button>
+          Crear un usuario
+        </button>
+
       </div>
     </div>
   );

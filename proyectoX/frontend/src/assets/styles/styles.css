@@ -53,7 +53,7 @@ input:focus {
 button {
   width: 100%;
   padding: 12px;
-  background-color: #2196f3;
+  background-color: #1976d261;
   color: white;
   font-size: 1.2rem;
   font-weight: 500;
@@ -63,9 +63,7 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #1976d2;
-}
+
 
 /* Enlace de texto */
 a {
@@ -89,3 +87,38 @@ a:hover {
 .message.success {
   color: #4caf50;
 }
+
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-container input {
+  flex: 1; /* Asegura que el input ocupe todo el espacio disponible */
+}
+
+
+/* Botón para alternar visibilidad */
+.toggle-password-button {
+  position: absolute;
+  right: 10px; /* Separación desde el borde derecho */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem; /* Tamaño del icono */
+  color: #eaeaea;
+  padding: 0; /* Elimina cualquier espacio adicional */
+  line-height: 1; /* Ajusta la altura de línea para que se ajuste al icono */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Coincide con la altura del input */
+  width: auto; /* Solo ocupa el espacio necesario */
+  transition: color 0.3s ease;
+}
+
+.toggle-password-button:hover {
+  color: #66bbff;
+}
+

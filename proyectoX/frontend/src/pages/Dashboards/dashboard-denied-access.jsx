@@ -14,7 +14,7 @@ const DashboardNo = () => {
     } else if (userRole === 'cliente') {
       navigate('/dashboard/cliente');
     } else {
-      navigate('/'); // Por defecto, redirige al login
+      navigate('/login'); // Por defecto, redirige al login
     }
   };
 
