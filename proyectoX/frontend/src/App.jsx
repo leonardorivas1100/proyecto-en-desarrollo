@@ -7,14 +7,19 @@ import DashboardAsistente from './pages/dashboards/dashboard-asistente';
 import DashboardCliente from './pages/dashboards/dashboard-cliente';
 import DashboardNo from './pages/dashboards/dashboard-denied-access'; // Ruta correcta del archivo
 import PrivateRoute from './components/protect-route/ProtectRoute'; // Importa el componente de rutas protegidas
+import HomePage from './pages/home-page'
 
 function App() {
   return (
     <Router>
       <AuthProvider>
         <Routes>
+
+          {/* Ruta para la página principal */}
+          <Route path="/" element={<HomePage />} />
+
           {/* Ruta para el login */}
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
 
           {/* Rutas protegidas por rol */}
           <Route 
