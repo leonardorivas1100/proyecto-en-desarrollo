@@ -16,26 +16,27 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NjNhZTI3N
 
 ### Lista de usuarios individual y o grupalmente.
 GET http://localhost:10000/api/usuarios/
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsInJvbCI6ImFzaXN0ZW50ZSIsImlhdCI6MTczNDc1NjE1MSwiZXhwIjoxNzM0NzU5NzUxfQ.MaElcyYbhVd3hfJQpGgYv8kioThQW0C0OyvByuhsyEw
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsInJvbCI6ImFzaXN0ZW50ZSIsImlhdCI6MTczNTI1NjczNSwiZXhwIjoxNzM1MjYzOTM1fQ.3-lwakImx1hQcBwBFjFahBiSMSvrsa3ZnXP3AyDHdns
 ###
 
 ### Editar un usuario por su numero de identificacion.
-PUT http://localhost:10000/api/usuarios/5665448979651651
+PUT http://localhost:10000/api/usuarios/2289897
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsInJvbCI6ImFzaXN0ZW50ZSIsImlhdCI6MTczNDc1NjE1MSwiZXhwIjoxNzM0NzU5NzUxfQ.MaElcyYbhVd3hfJQpGgYv8kioThQW0C0OyvByuhsyEw
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsInJvbCI6ImFzaXN0ZW50ZSIsImlhdCI6MTczNTI1NjczNSwiZXhwIjoxNzM1MjYzOTM1fQ.3-lwakImx1hQcBwBFjFahBiSMSvrsa3ZnXP3AyDHdns
 
 
 {
-  "nuevoNumeroIdentificacion": "5665448979651651",
-  "nombres": "Diego",
-  "apellidos": "Farias",
-  "telefono": "651564510",
-  "email": "diego_alejandro@gmail.com",
-  "password": "diegoalejandro1208",
+  "nuevoNumeroIdentificacion": "2289897",
+  "nombres": "Leonardo",
+  "apellidos": "Rivas",
+  "telefono": "3027887963",
+  "email": "leonardodrv1204@gmail.com",
+  "password": "leonardo123456",
   "nombre_rol": "asistente"
 }
 ###
 
 ### Eliminar un usuario por su numero de Identificacion.
-DELETE http://localhost:10000/api/usuarios/147
+DELETE http://localhost:10000/api/usuarios/958613894651302
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsInJvbCI6ImFzaXN0ZW50ZSIsImlhdCI6MTczNTI1NjczNSwiZXhwIjoxNzM1MjYzOTM1fQ.3-lwakImx1hQcBwBFjFahBiSMSvrsa3ZnXP3AyDHdns
 ###
