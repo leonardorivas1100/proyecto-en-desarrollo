@@ -15,6 +15,13 @@ const router = express.Router();
 /**
  * @swagger
  * components:
+ * components:
+ *   securitySchemes:
+ *     BearerAuth:
+ *       type: apiKey
+ *       in: header
+ *       name: Authorization
+ *       description: Se utiliza para autenticar las peticiones mediante JWT.
  *   schemas:
  *     Usuario:
  *       type: object
@@ -58,6 +65,8 @@ const router = express.Router();
  *   post:
  *     summary: Crear un nuevo usuario
  *     tags: [Usuario]
+ *     security:
+ *       - BearerAuth: []  # Requiere autenticación con token JWT
  *     requestBody:
  *       required: true
  *       content:
@@ -82,6 +91,8 @@ router.post('/', verifyToken, verifyRole(['asistente']), validatorHandler(create
  *   get:
  *     summary: Mirar todos los usuarios registrados
  *     tags: [Usuario]
+ *     security:
+ *       - BearerAuth: []  # Requiere autenticación con token JWT
  *     responses:
  *       201:
  *         description: Lista de usuarios
@@ -99,6 +110,8 @@ router.get('/', verifyToken, verifyRole(['asistente']), see_all_users);
  *     summary: Obtener un usuario especificado por su numero de identificacion
  *     description: Obtendrá un usuario especificado por su nombre
  *     tags: [Usuario]
+ *     security:
+ *       - BearerAuth: []  # Requiere autenticación con token JWT
  *     parameters:
  *       - name: numeroIdentificacion
  *         in: path
@@ -123,6 +136,8 @@ router.get('/:numeroIdentificacion', verifyToken, verifyRole(['asistente']), fou
  *     summary: Actualizar un usuario por número de identificación
  *     description: Actualiza los detalles de un usuario existente mediante su número de identificación.
  *     tags: [Usuario]
+ *     security:
+ *       - BearerAuth: []  # Requiere autenticación con token JWT
  *     parameters:
  *       - name: numeroIdentificacion
  *         in: path
@@ -176,6 +191,8 @@ router.put('/:numeroIdentificacion', verifyToken, verifyRole(['asistente']), val
  *     summary: Eliminar un usuario por número de identificación
  *     description: Elimina un usuario de la base de datos utilizando su número de identificación.
  *     tags: [Usuario]
+ *     security:
+ *       - BearerAuth: []  # Requiere autenticación con token JWT
  *     parameters:
  *       - name: numeroIdentificacion
  *         in: path
