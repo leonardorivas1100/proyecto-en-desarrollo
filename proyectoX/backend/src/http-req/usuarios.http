@@ -16,7 +16,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NjNhZTI3N
 
 ### Lista de usuarios individual y o grupalmente.
 GET http://localhost:10000/api/usuarios/
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsInJvbCI6ImFzaXN0ZW50ZSIsImlhdCI6MTczNTYxMDExOSwiZXhwIjoxNzM1NjE3MzE5fQ.PmgxA-rhDylMIUmvp38GwX1_dtsxilUDzxW5pqoEhCY
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWZiYjM4MmRiYzE1NmYzYWJlZDNmYSIsInJvbCI6ImFzaXN0ZW50ZSIsImlhdCI6MTczNTk2Nzk5NCwiZXhwIjoxNzM1OTc1MTk0fQ.KaWNDm5JgCng7UH2HTJHlAgZs7qdiry6ED9buYO2IA4
 ###
 
 ### Editar un usuario por su numero de identificacion.

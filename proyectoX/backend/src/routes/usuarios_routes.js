@@ -15,7 +15,6 @@ const router = express.Router();
 /**
  * @swagger
  * components:
- * components:
  *   securitySchemes:
  *     BearerAuth:
  *       type: apiKey
