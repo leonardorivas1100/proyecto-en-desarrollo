@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const createUser = async (userData) => {
     const token = localStorage.getItem('token');
     const response = await fetch('http://localhost:10000/api/usuarios', {
@@ -14,3 +16,13 @@ export const createUser = async (userData) => {
     return await response.json();
   };
   
+
+
+export const getUsers = async (token) => {
+  return await axios.get('http://localhost:10000/api/usuarios', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};  
+    

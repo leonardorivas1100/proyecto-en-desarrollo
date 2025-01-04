@@ -122,3 +122,45 @@ a:hover {
   color: #66bbff;
 }
 
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.form-container {
+  background-color: #1e1e2f;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  width: 100%;
+  max-width: 400px;
+  color: #eaeaea;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  background-color: #2a2a3e;
+  color: #eaeaea;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 400;
+  transition: background-color 0.3s ease;
+}
+
+select:focus {
+  background-color: #3c3c56;
+  outline: none;
+}
+
+
