@@ -1,24 +1,31 @@
 /* Importa la fuente de Google Fonts */
 body {
-  font-family: 'Roboto', sans-serif; /* Cambia a la fuente que prefieras */
-  background-color: #121212; /* Fondo oscuro */
-  color: #eaeaea; /* Texto en gris claro */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  font-family: 'Roboto', sans-serif; 
+  background-color: #121212;
+  color: #eaeaea;
   margin: 0;
+  min-height: 100vh; /* Asegura que el cuerpo ocupe al menos la altura de la ventana */
+  display: flex;
+  flex-direction: column; /* Permite que el contenido fluya hacia abajo */
 }
 
 /* Estilos para el contenedor principal */
 .login-container {
-  background-color: #1e1e2f; 
+  background-color: #1e1e2f;
   border-radius: 10px;
   padding: 30px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
   width: 100%;
   max-width: 400px;
+  margin: 20px auto; /* Agrega margen para evitar que quede pegado */
   text-align: center;
+}
+
+.user-table-container {
+  margin-top: 20px;
+  max-height: 400px; /* Establece un límite de altura */
+  overflow-y: auto; /* Habilita el desplazamiento vertical si el contenido supera la altura */
+  border-radius: 8px;
 }
 
 /* Títulos */
@@ -49,7 +56,6 @@ input:focus {
   outline: none;
 }
 
-/* Botón */
 button {
   width: 100%;
   padding: 12px;
@@ -61,6 +67,7 @@ button {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-top: 20px; /* Espacio entre el botón y otros elementos */
 }
 
 
@@ -162,5 +169,64 @@ select:focus {
   background-color: #3c3c56;
   outline: none;
 }
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Sombra más acorde con el fondo oscuro */
+  background-color: #1e1e2f; /* Fondo oscuro */
+  border-radius: 8px;
+  overflow: hidden;
+}
 
+.user-table thead {
+  background-color: #66bbff; /* Azul brillante */
+  color: #121212; /* Texto oscuro para contraste */
+  text-align: left;
+}
 
+.user-table th, .user-table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.user-table tbody tr {
+  border-bottom: 1px solid #2a2a3e; /* Línea tenue */
+  transition: background-color 0.3s;
+}
+
+.user-table tbody tr:hover {
+  background-color: #2a2a3e; /* Un poco más claro al hacer hover */
+}
+
+.user-table tbody tr:nth-child(even) {
+  background-color: #24243a; /* Alternancia de colores oscuros */
+}
+
+.user-table th {
+  font-weight: bold;
+}
+
+.user-table td {
+  color: #eaeaea; /* Texto claro */
+}
+
+.user-table td:last-child {
+  text-align: center;
+}
+
+/* Opcional: Estilo para botones en la tabla */
+.table-button {
+  padding: 8px 12px;
+  background-color: #66bbff;
+  color: #121212;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.table-button:hover {
+  background-color: #4a9ed4; /* Azul más oscuro al pasar el cursor */
+}
