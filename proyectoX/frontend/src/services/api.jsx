@@ -1,28 +1,18 @@
 import axios from 'axios';
 
-export const createUser = async (userData) => {
-    const token = localStorage.getItem('token');
-    const response = await fetch('http://localhost:10000/api/usuarios', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify(userData),
-    });
-    if (!response.ok) {
-      throw new Error('Error al crear el usuario');
-    }
-    return await response.json();
-  };
-  
+const API_URL = 'http://localhost:10000/api/usuarios';
 
+export const createUser = async (userData) => {
+  const token = localStorage.getItem('token');
+  const response = await axios.post(API_URL, userData, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+};
 
 export const getUsers = async (token) => {
-  return await axios.get('http://localhost:10000/api/usuarios', {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+  const response = await axios.get(API_URL, {
+    headers: { Authorization: `Bearer ${token}` },
   });
-};  
-    
+  return response;
+};

@@ -1,30 +1,13 @@
-// DashboardAsistente.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar from "../../components/navbar/Navbar";
 import UserForm from "../../components/use-form/UseForm";
-import { createUser, getUsers } from "../../services/api"; // Asegúrate de tener esta función en tus servicios
+import { createUser } from "../../services/api";
+import { useUsers } from "../../hooks/useUsers";
 
 const DashboardAsistente = () => {
   const [showForm, setShowForm] = useState(false);
-  const [users, setUsers] = useState([]); // Estado para almacenar usuarios
+  const { users, loading, error, fetchUsers } = useUsers();
 
-  // Función para obtener la lista de usuarios
-  const fetchUsers = async () => {
-    try {
-      const token = localStorage.getItem('token'); // Token si es necesario
-      const response = await getUsers(token); // Suponiendo que `getUsers` está configurado
-      setUsers(response.data); // Asegúrate de que la estructura de datos sea correcta
-    } catch (error) {
-      console.error("Error al obtener usuarios:", error);
-    }
-  };
-
-  // Llamar a `fetchUsers` al montar el componente
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  // Manejar la creación de un usuario
   const handleCreateUser = async (formData) => {
     try {
       await createUser(formData);
@@ -39,6 +22,7 @@ const DashboardAsistente = () => {
   };
 
   return (
+    
     <div>
       <Navbar />
       <div style={{ marginTop: '70px', padding: '20px' }}>
@@ -53,27 +37,38 @@ const DashboardAsistente = () => {
           />
         )}
         <h2>Lista de Usuarios</h2>
-        {users.length === 0 ? (
+        {loading ? (
+          <p>Cargando usuarios...</p>
+        ) : error ? (
+          <p>Error: {error}</p>
+        ) : users.length === 0 ? (
           <p>No hay usuarios disponibles.</p>
         ) : (
           <table className="user-table">
             <thead>
               <tr>
-                <th>ID</th>
+                <th>Numero Identificacion</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Email</th>
                 <th>Rol</th>
+                <th>Opciones</th>
               </tr>
             </thead>
             <tbody>
               {users.map((user) => (
-                <tr key={user.id}>
+                <tr key={user._id}>
                   <td>{user.numeroIdentificacion}</td>
                   <td>{user.nombres}</td>
                   <td>{user.apellidos}</td>
                   <td>{user.email}</td>
-                  <td>{user.nombre_rol}</td>
+                  <td>
+                    {user.nombre_rol?.nombre || "Sin rol"}
+                  </td>
+                  <td>
+  <button className="button-edit">Editar</button>
+  <button className="button-delete">Eliminar</button>
+</td>
                 </tr>
               ))}
             </tbody>
